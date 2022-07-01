@@ -1,15 +1,15 @@
 | Date      | Application Segment | Flow               | Task Name                                    | Description                                                                             | Status   |
 | --------- | ------------------- | ------------------ | -------------------------------------------- | --------------------------------------------------------------------------------------- | -------- |
-| 6/13/2022 | Middle Tier/ Python | \-                 | Creating the end to end Django Flow          | Designing the approver and uploader flow in Django                                      | Done     |
+| 6/13/2022 | MIddle Tier/ Python | \-                 | Creating the end to end Django Flow          | Designing the approver and uploader flow in Django                                      | Done     |
 | 6/13/2022 | UI                  | \-                 | Perpwork                                     | HTML, CSS ( and Bootstrap) Layout and JavaScript calls defined                          | Done     |
 | 6/13/2022 | UI                  | Uploader           | Design - Uploader Flow                       | Designing the application based on the emails from Alexios                              | Done     |
-| 6/13/2022 | UI                  | Admin              | Design - Admin Flow                          | Designing the application based on the emails from  Alexios                             | Done |
-| 6/13/2022 | Middle Tier/ Python | \-                 | Understand the License File                  | Understand the License File sent across by SPDX                                         | Done |
-| 6/13/2022 | Middle Tier/ Python | \-                 | Understand the License File                  | Review and Analyse the Tree Data Structure of the Canonical Format                      | On Going |
+| 6/13/2022 | UI                  | Admin              | Design - Admin Flow                          | Designing the application based on the emails from  Alexios                             | On Going |
+| 6/13/2022 | MIddle Tier/ Python | \-                 | Understand the License File                  | Understand the License File sent across by SPDX                                         | On Going |
+| 6/13/2022 | MIddle Tier/ Python | \-                 | Understand the License File                  | Review and Analyse the Tree Data Structure of the Canonical Format                      | On Going |
 | 6/14/2022 | Backend             | \-                 | Understanding the deployment process         | List out the various hosting methods                                                    | Done     |
 | 6/14/2022 | Backend             | \-                 | AWS Services                                 | List out the AWS services to be used for optimal experience                             | Done     |
 | 6/14/2022 | Backend             | \-                 | Find the Best SQL Databse for application    | Finalized between SQLite and Prostgres                                                  | Done     |
-| 6/14/2022 | Middle Tier/ Python | All                | User - login, register and role creation     | Define the model for the user object, create django forms for the same with validations | Done     |
+| 6/14/2022 | MIddle Tier/ Python | All                | User - login, register and role creation     | Define the model for the user object, create django forms for the same with validations | Done     |
 | 6/14/2022 | MIddle Tier/ Python | All                | User - login, register and role creation     | Define validation rules for the form and display error messages                         | Done     |
 | 6/15/2022 | UI                  | All                | User - login, register and role creation     | Design the UI for user sign-in, registering and forgot password screens                 | Done     |
 | 6/15/2022 | Middle Tier/ Python | All                | User Session                                 | Provide Authentication and define the session                                           | Done     |
@@ -60,4 +60,12 @@
 | 6/28/2022 | Backend             | \-                 | Model Fields Redefinition                    | Redefine model as per Alexios' comments                                                 | Done     |
 | 6/28/2022 | Middle Tier/ Python | \-                 | Incorporate model redefinition               | Change views and forms to work with the change in model field                           | Done     |
 | 6/28/2022 | UI                  | \-                 | Incorporate model redefinition               | Change UI and error messages to work with the change in model field                     | Done     |
-| 6/28/2022 | UI                  | Approver/ Uploader | Change Menu Options                          | Delete Redundant menu options and rename the others                                     | Done     |
+| 6/28/2022 | UI                  | Approver/Uploader  | Change Menu Options                          | Delete Redundant menu options and rename the others                                     | Done     |
+| 6/29/2022 | Middle Tier/ Python | Approver/Uploader  | File Upload Option                           | Update upload and edit views to include file upload and give necessary error messages   | Done     |
+| 6/29/2022 | UI                  | Approver/Uploader  | File Upload Option                           | Change UI to include file upload options. Validate the file type using JS               | Done     |
+| 6/29/2022 | Model               | \-                 | Change constraintsfor the license Data table | Redefine model constraints as per the reiew comments on Github                          | Done     |
+| 6/30/2022 | Middle Tier/ Python | Uploader           | Basic dedplication implementation            | Check if uploaded fle or text is already present                                        | Done     |
+| 6/29/2022 | Middle Tier/ Python | Uploader           | File upload errors                           | Fix errors when both text s entered and file is uploaded                                | Done     |
+| 6/29/2022 | UI                  | Uploader           | Styling changes                              | Change Styling to make application more User Friendly                                   | Done     |
+| 6/30/2022 | Middle Tier/ Python | All                | Make the application menu flat               | Create a single view and template for all users                                         | Done     |
+| 6/30/2022 | UI                  | All                | Make the application menu flat               | Dynamically populate screens based on user role                                         | Done     |
