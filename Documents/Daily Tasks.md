@@ -69,3 +69,16 @@
 | 6/29/2022 | UI                  | Uploader           | Styling changes                              | Change Styling to make application more User Friendly                                   | Done     |
 | 6/30/2022 | Middle Tier/ Python | All                | Make the application menu flat               | Create a single view and template for all users                                         | Done     |
 | 6/30/2022 | UI                  | All                | Make the application menu flat               | Dynamically populate screens based on user role                                         | Done     |
+| 6/31/2022 | ALL                 | Approver        | Unit Test                    | Test all views and models done so far                        | Done |
+| 6/31/2022 | ALL                 | Uploader        | Unit Test                    | Test all views and models done so far                        | Done |
+| 7/1/2022  | ALL                 | Approver        | Bug Fixing                   | Fix all bugs found (Tracking error)                          | Done |
+| 7/1/2022  | ALL                 | Uploader        | Bug Fixing                   | Fix all bugs found                                           | Done |
+| 7/2/2022  | UI                  | Admin           | Desgin the admin screen      | Design the UI for Admin                                      | Done |
+| 7/2/2022  | Middle Tier/ Python | Admin           | Design Views for Admin       | Define views for admin login                                 | Done |
+| 7/2/2022  | Middle Tier/ Python | Admin           | License Delete               | Define views for admin to delete licenses                    | Done |
+| 7/2/2022  | Middle Tier/ Python | Admin           | Namespace                    | Define views for admin to set namespace                      | Done |
+| 7/3/2022  | Backend             | Admin           | Namespace                    | Change Database tables structure                             | Done |
+| 7/3/2022  | Middle Tier/ Python | Admin           | Role Setting and Updating    | Define views for Admin to set and delete roles for all users | Done |
+| 7/3/2022  | Middle Tier/ Python | ALL             | User validaions              | Redefine user validations to include 'Admin'                 | Done |
+| 7/3/2022  | Middle Tier/ Python | Uploader/ Admin | File Upload error correction | Changes to Upload view                                       | Done |
+| 7/3/2022  | Middle Tier/ Python | ALL             | Export                       | Testing Export Option                                        | Done |
