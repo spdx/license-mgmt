@@ -82,8 +82,3 @@
 | 7/3/2022  | Middle Tier/ Python | ALL             | User validaions              | Redefine user validations to include 'Admin'                 | Done |
 | 7/3/2022  | Middle Tier/ Python | Uploader/ Admin | File Upload error correction | Changes to Upload view                                       | Done |
 | 7/3/2022  | Middle Tier/ Python | ALL             | Export                       | Testing Export Option                                        | Done |
-| 7/4/2022 | Backend             | Admin              | Users                   | View users data                                                 | Done |
-| 7/4/2022 | Middle Tier/ Python | Uploader           | Update and Edit changes | Change logic for Update and edit                                | Done |
-| 7/4/2022 | Middle Tier/ Python | ALL                | User profile            | View to change suers details                                    | Done |
-| 7/5/2022 | Middle Tier/ Python | Uploader/ Approver | license Export option   | Views to export license details                                 | Done |
-| 7/5/2022 | Middle Tier/ Python | Superuser          | Export / Import option  | Option for superuser to export and import many licenses at once | Done |

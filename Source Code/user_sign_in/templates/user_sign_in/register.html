@@ -1,0 +1,67 @@
+{% extends "license_management_system/base.html" %}
+{% load static %}
+{% block content %} 
+<!-- Content -->    
+<div class="container-xxl">
+  <div class="authentication-wrapper authentication-basic container-p-y">
+    <div class="authentication-inner">
+      <!-- Register -->
+      <div class="card">
+        <div class="card-body">
+          <!-- Logo -->
+          <img src="{% static "license_management_system/img/icons/brands/SPDX_logo.png" %}" alt="SPDX LOGO" id="img_logo">
+          <style>
+            #img_logo{
+              align-self: auto;
+              padding: 10%;
+            }
+          </style>
+          <!-- /Logo -->
+          <h4 class="mb-2">Welcome to the License Management System! 👋</h4>
+          {% if forms.errors %}
+            <div class="alert alert-primary" role="alert">There was an error in your credentials. Enter Again</div>
+          {% else %}
+            <p class="mb-4">Create your account and start the adventure</p>
+          {% endif %}             
+
+          
+            <form id="formAuthentication" class="mb-3" method="POST">
+                {% csrf_token %}
+                {% for field in form %}
+                <div class="mb-3 form-password-toggle">
+                  <div class="d-flex justify-content-between">
+                    <label class="form-label" for="password">{{field.label}}</label>                    
+                  </div>
+                  {{field}} 
+                </div>
+                
+                {% endfor %}
+
+                {% if form.errors %}
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                        <div class="alert alert-warning" role="alert">{{error}}</div>
+                        {% endfor %}
+                    {% endfor %}
+                    {% for error in form.non_field_errors %}
+                    <div class="alert alert-primary" role="alert">{{error}}</div>
+                    {% endfor %}
+                {% endif %}
+                <div class="mb-3">
+                    <input class="btn btn-primary d-grid w-100" type="submit" name="Submit">
+                </div>
+            </form>
+            <div class="text-center">
+              <a href="{% url "user_sign_in:sign_in" %}" class="d-flex align-items-center justify-content-center">
+                <i class="bx bx-chevron-left scaleX-n1-rtl bx-sm"></i>
+                Back to login
+              </a>
+            </div>
+         
+        </div>
+      </div>
+      <!-- /Register -->
+    </div>
+  </div>
+</div>
+{% endblock %}
