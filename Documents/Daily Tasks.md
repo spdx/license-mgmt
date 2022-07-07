@@ -87,3 +87,6 @@
 | 7/4/2022 | Middle Tier/ Python | ALL                | User profile            | View to change suers details                                    | Done |
 | 7/5/2022 | Middle Tier/ Python | Uploader/ Approver | license Export option   | Views to export license details                                 | Done |
 | 7/5/2022 | Middle Tier/ Python | Superuser          | Export / Import option  | Option for superuser to export and import many licenses at once | Done |
+| 7/6/2022 | ALL | -          | Test  | Test all views done so far before deploying the second version of the app | Done |
+| 7/7/2022 | ALL | -          | Bug Fixing  | Fix all the bugs found before deploying the second version of the app | Done |
+| 7/7/2022 | Middle Tier/ Python | ALL         | Increase export format options  | Increse the number of formats for exporting license Data | Done |
