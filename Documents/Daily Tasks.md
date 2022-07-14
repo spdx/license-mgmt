@@ -89,4 +89,17 @@
 | 7/5/2022 | Middle Tier/ Python | Superuser          | Export / Import option  | Option for superuser to export and import many licenses at once | Done |
 | 7/6/2022 | ALL | -          | Test  | Test all views done so far before deploying the second version of the app | Done |
 | 7/7/2022 | ALL | -          | Bug Fixing  | Fix all the bugs found before deploying the second version of the app | Done |
-| 7/7/2022 | Middle Tier/ Python | ALL         | Increase export format options  | Increse the number of formats for exporting license Data | Done |
+| 7/7/2022 | Middle Tier/ Python | ALL         | Increase export format options  | Increse the number of formats for exporting license Data | On Going |
+| 7/8/2022 | Middle Tier/ Python | ALL         | Increase export format options  | Increse the number of formats for exporting license Data | Done |
+| 7/9/2022 |ALL | ALL         | Unit Testing  | Test all views and models done so far | Done |
+| 7/10/2022  | ALL                 | ALL        | Bug Fixing                   | Fix all bugs found                                           | Done |
+| 7/11/2022  | -                 | -        | Documentation                | Document all features and views                                          | On Going |
+| 7/12/2022  | -                 | -        | Documentation                | Document all features and views                                          | On Going |
+| 7/13/2022  | -                 | -        | Documentation                | Document all features and views                                          | On Going |
+| 7/13/2022  | -                 | -        | Features List                | List out all features developed and to be done during in the product | On Going |
+| 7/14/2022  | -                 | -        | Documentation                | Document all features and views                                          | On Going |
+| 7/14/2022  | -                 | -        | Features List                | List out all features developed and to be done during in the product| Done |
+
+
+
+
