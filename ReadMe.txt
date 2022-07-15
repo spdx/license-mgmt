@@ -7,4 +7,4 @@ Documents Folder contents:
 	DataBase Table Structure
 
 Source Code contents:
-	Complete source code (to be uploaded later)
+	Complete source code
