@@ -1,0 +1,38 @@
+{% extends "license_management_system/base.html" %}
+{% load static %}
+
+{% block content %}     
+<!-- Content -->
+<div class="container-xxl">
+  <div class="authentication-wrapper authentication-basic container-p-y">
+    <div class="authentication-inner py-4">
+      <div class="card">
+        <div class="card-body">
+          <!-- Logo -->
+          <img src="{% static "license_management_system/img/icons/brands/SPDX_logo.png" %}" alt="SPDX LOGO" id="img_logo">
+          <style>
+            #img_logo{
+              align-self: auto;
+              padding: 10%;
+            }
+          </style>
+          <!-- /Logo -->
+          <h4 class="mb-2">Are you sure you want to logout?</h4>
+          <form id="formAuthentication" class="mb-3" method="POST">   
+            {% csrf_token %}
+            <div class="card-body">             
+              <input class="btn btn-primary d-grid w-100" type="submit" value="Logout">
+            </div>
+          </form>  
+          <div class="text-center">
+            <a href="{% url "user:dashboard" %}" class="d-flex align-items-center justify-content-center">
+              <i class="bx bx-chevron-left scaleX-n1-rtl bx-sm"></i>
+              Back to Dashboard
+            </a>
+          </div>            
+        </div>
+      </div>
+    </div>
+  </div>
+</div>    
+{% endblock %}

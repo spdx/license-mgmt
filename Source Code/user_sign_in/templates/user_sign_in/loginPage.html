@@ -1,0 +1,82 @@
+{% extends "license_management_system/base.html" %}
+{% load static %}
+{% block content %} 
+<!-- Content -->   
+<div class="container-xxl">
+  <div class="authentication-wrapper authentication-basic container-p-y">
+    <div class="authentication-inner">      
+      <!-- Register -->
+      <div class="card">
+        <div class="card-body">
+          <!-- Logo -->
+          <img src="{% static "license_management_system/img/icons/brands/SPDX_logo.png" %}" alt="SPDX LOGO" id="img_logo">
+          <style>
+            #img_logo{
+              align-self: auto;
+              padding: 10%;
+            }
+          </style>
+          <!-- /Logo -->
+          <h4 class="mb-2">Welcome to the License Management System! 👋</h4>
+          {% if no_user %}
+            <div class="alert alert-primary" role="alert">Either the username or password is wrong. Please enter credentials again</div>
+          {% else %}
+            <p class="mb-4">Please sign-in to your account and start the adventure</p>
+          {% endif %}            
+
+          <!-- Success Messages -->
+          {% for msg in messages %}
+          <div class="alert alert-success alert-dismissible" role="alert">
+            {{msg}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+          {% endfor %}
+          <!-- Success Messages -->
+
+          <form id="formAuthentication" class="mb-3" action="/" method="POST">
+            {% csrf_token %}
+            <div class="mb-3">
+              <label for="email" class="form-label">Email or Username</label>
+             {{form.username}}
+            </div>
+            <div class="mb-3 form-password-toggle">
+              <div class="d-flex justify-content-between">
+                <label class="form-label" for="password">Password</label>
+                <a href="{% url "forgot_password" %}">
+                  <small>Forgot Password?</small>
+                </a>
+              </div>
+                {{form.password}}
+            </div>
+            <div class="mb-3">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="remember-me" />
+                <label class="form-check-label" for="remember-me"> Remember Me </label>
+              </div>
+            </div>
+            <div class="mb-3">
+              <input class="btn btn-primary d-grid w-100" type="submit" name="Submit">
+          </div>
+          </form>
+          <div class="text-center">                
+
+          <p class="text-center">
+            <span>New User?</span>
+            <a href="{% url "user_sign_in:register" %}">
+              <span>Create an account</span>
+            </a>
+          </p>
+        </div>
+      </div>
+      
+      <a href="{% url "user_sign_in:displayApprovedLicenses" %}" class="d-flex align-items-center justify-content-center">
+        <i class="bx bx-chevron-left scaleX-n1-rtl bx-sm"></i>
+        Back to License List
+      </a>
+
+      <!-- /Register -->
+    </div>
+  </div>
+</div>
+{% endblock %}
+

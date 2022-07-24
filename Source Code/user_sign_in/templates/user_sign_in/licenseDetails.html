@@ -1,0 +1,52 @@
+{% extends 'user_sign_in/base.html' %}
+
+{% block List %}
+  <div class="content-wrapper">
+    <!-- Content -->    
+    <div class="container-xxl flex-grow-1 container-p-y">        
+        <div class="col-lg">
+            <div class="card">
+              <div class="card-body">
+                <small class="text-light fw-semibold">License - {{licenseObject.id}} </small>
+                <dl class="row mt-2">
+                  <dt class="col-sm-3">Title</dt>
+                  <dd class="col-sm-9">
+                    <p>{{ licenseObject.title }}</p>
+                </dd>
+
+                  <dt class="col-sm-3">Name</dt>
+                  <dd class="col-sm-9">
+                    <p>{{ licenseObject.name }}</p>
+                  </dd>
+
+                  <dt class="col-sm-3">Identifier</dt>
+                  <dd class="col-sm-9">
+                    <p>{{ licenseObject.identifier }}</p>
+
+                  </dd><dt class="col-sm-3">Namespace</dt>
+                  <dd class="col-sm-9">
+                    <p>{{ licenseObject.namespace }}</p>
+
+                  <dt class="col-sm-3">Text</dt>
+                  <dd class="col-sm-9">
+                    {% for para in text%}
+                      {{para}}</br>
+                    {% endfor %}
+                  </dd>
+
+                </dl>
+              </div>
+            </div>
+          </div>   
+        </div>
+      </div>   
+    </div>
+    <!-- Content -->
+  </div>    
+
+{% endblock %}       
+
+
+
+
+

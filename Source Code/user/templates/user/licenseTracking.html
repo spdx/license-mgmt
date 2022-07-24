@@ -1,0 +1,91 @@
+{% extends "user/base.html" %}
+{% load static %}
+
+{% block optional %}
+    <!-- Load CSS file for DataTables  -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/css/jquery.dataTables.min.css"
+      integrity="sha512-1k7mWiTNoyx2XtmI96o+hdjP8nn0f3Z2N4oF/9ZZRgijyV4omsKOXEnqL1gKQNPy2MTSP9rIEWGcH/CInulptA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- load DataTables  -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/js/jquery.dataTables.min.js"
+      integrity="sha512-BkpSL20WETFylMrcirBahHfSnY++H2O1W+UnEEO4yNIl+jI2+zowyoGJpbtk6bx97fBXf++WJHSSK2MV4ghPcg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+{% endblock %}
+
+{% block contents %}
+<!-- Striped Rows -->
+</br>
+<div class="card-body">
+    <div class="card">
+        <div class="table-responsive text-nowrap ">            
+        <hr style="border-top:1px; clear:both;"/>
+            <table class="table table-bordered display" id="LicensesView">
+            <thead >
+                <tr>
+                <th>Operation Type</th>
+                <th>User</th>
+                <th>Date</th>
+                <th>Comments</th>
+                {% if ChangesTracking %}
+                    <th>Actions</th>
+                {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for changeInTracking in TrackingDetails %}
+                <tr>
+                    <td>
+                        {% if changeInTracking.operationType|lower == "approved" %}
+                            <span class="badge bg-label-success me-1">{{ changeInTracking.operationType }}</span>
+                        {% elif changeInTracking.operationType|lower == "rejected" %}
+                            <span class="badge bg-label-danger me-1">{{ changeInTracking.operationType }}</span>
+                        {% elif changeInTracking.operationType|lower == "modified" %}
+                            <span class="badge bg-label-warning me-1">{{ changeInTracking.operationType }}</span>
+                        {% else %}
+                            <span class="badge bg-label-primary me-1">{{ changeInTracking.operationType }}</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {{ changeInTracking.user }}
+                    </td>
+                    <td>
+                        {{ changeInTracking.date }}
+                    </td>
+                    <td>
+                        {{ changeInTracking.comments }}
+                    </td>
+                    {% if ChangesTracking %}
+                        <th><a class="dropdown-item" href="{% url "user:licenseDetails" changeInTracking.license_id %}"
+                            ><i class="bx bx-receipt me-1"></i> View </a></th>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </tbody>
+            </table>      
+            <script>
+                $(document).ready( function () {
+                    $('#LicensesView').DataTable();
+                } );
+            </script>        
+        </div>        
+    </div>
+</div>
+
+<!--/ Striped Rows -->
+
+<!--Export-->
+<div class="demo-inline-spacing" id="export">
+    <button type="button" class="btn rounded-pill btn-primary"> Export
+    </button>
+    <button type="button" class="btn rounded-pill btn-secondary">Export and zip
+    </button>
+</div>
+{% endblock %}

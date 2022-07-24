@@ -1,0 +1,37 @@
+{% extends 'user_sign_in/base.html' %}
+
+{% block List %}
+  <div class="card">
+      <div class="table-responsive text-nowrap ">   
+          <table class="table table-bordered table-striped" id="LicensesView">
+          <thead >
+              <tr>
+              <th><strong>Title</strong></th>
+              <th><strong>Name</strong></th>
+              <th><strong>Identifier</strong></th>
+              <th><strong>Namespace</strong></th>
+              <th><strong>Action</strong></th>
+              </tr>
+          </thead>
+          <tbody>
+              {% for license in licenses %}     
+                  <tr>
+                  <td><i class="fab fa-angular fa-lg text-danger me-3"></i>{{ license.title }}</td>
+                  <td>{{ license.name }}</td>
+                  <td>
+                      {{ license.identifier }}
+                  </td>
+                  <td>
+                      {{ license.namespace }}
+                  </td>
+                  <td>
+                      <a class="dropdown-item" href="{% url "user_sign_in:licenseDetailsPage" license.id %}"
+                          ><i class="bx bx-receipt me-1"></i> View </a>
+                  </td>
+                  </tr>  
+              {% endfor %}          
+          </tbody>
+          </table>      
+      </div>        
+  </div>
+{% endblock %}

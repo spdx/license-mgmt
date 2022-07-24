@@ -1,0 +1,38 @@
+{% extends "license_management_system/base.html" %}
+{% load static %}
+
+{% block content %} 
+    
+  <!-- Content -->
+
+  <div class="container-xxl">
+    <div class="authentication-wrapper authentication-basic container-p-y">
+      <div class="authentication-inner py-4">
+        <!-- Forgot Password -->
+        <div class="card">
+          <div class="card-body">
+            <!-- Logo -->
+            <img src="{% static "license_management_system/img/icons/brands/SPDX_logo.png" %}" alt="SPDX LOGO" id="img_logo">
+            <style>
+              #img_logo{
+                align-self: auto;
+                padding: 10%;
+              }
+            </style>
+            <!-- /Logo -->
+            <h4 class="mb-2">Password reset sent</h4>
+            <p class="mb-4">We’ve emailed you instructions for setting your password, if an account exists with the email you entered. You should receive them shortly.</p>            
+          
+            <p class="mb-4">If you don’t receive an email, please make sure you’ve entered the address you registered with, and check your spam folder.</p>
+            
+          </div>
+        </div>
+        <!-- /Forgot Password -->
+      </div>
+    </div>
+  </div>    
+  
+{% endblock %}
+
+
+
