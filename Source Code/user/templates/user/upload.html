@@ -56,13 +56,16 @@
                   {% endif %}
 
                 </div>
-              </div>              
+              </div>             
+              <div class="divider">
+                <hr>
+              </div>    
               <div class="row mb-3">
                 <label class="col-sm-2 col-form-label">License Text</label>
                 <div class="col-sm-10">
-                  <div class="row">
+                  <div class="row">                    
                     <div class="col-md mb-4 mb-md-0">
-                      <small class="text-light fw-semibold">Enter the text or upload a file</small>
+                      
                       {{form.licenseData}}
                           {% comment %} {% if edit %}
                             {{form.licenseData}}
@@ -75,9 +78,9 @@
                           ></textarea>
                           {% endif %}  {% endcomment %}
                         
-                        <div class="divider">
-                          <hr>
-                        </div>                        
+                          <div class="divider">
+                            <div class="divider-text">Either enter text or upload a file!</div>
+                          </div>      
                         
                         <div class="mb-3">
                           <input class="form-control" type="file" id="file" name="licenseFile" onchange="return fileValidation()"/>

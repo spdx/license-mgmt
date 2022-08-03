@@ -9,7 +9,7 @@
 
 {% block content%}
 <!-- Layout wrapper -->
-<div class="layout-wrapper layout-content-navbar">
+<nav class="layout-wrapper layout-content-navbar">
   <div class="layout-container">
     <!-- Menu -->
 
@@ -136,16 +136,13 @@
 
     <!-- Layout container -->
     <div class="layout-page">
-      <!-- Navbar -->
+      
 
       <h4 class="display-4">
         {{ context|trim }}
         <small class="text-muted">{{secondaryContext|trim}}</small>
       </h4> 
-
     <hr>
-
-      <!-- / Navbar -->
 
       <!-- Content wrapper -->
     {% block contents %}
@@ -158,7 +155,7 @@
 
   <!-- Overlay -->
   <div class="layout-overlay layout-menu-toggle"></div>
-</div>
+</nav>
 <!-- / Layout wrapper -->
 </div>
 {% endblock %}

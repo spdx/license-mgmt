@@ -42,5 +42,4 @@ urlpatterns = [
     path("Settings/",UserViews.settings, name="settings"),
     path("Logout",UserViews.LogoutView, name="Logout"),
     path("logoutAndLicenseList",UserViews.logoutAndLicenseList, name="logoutAndLicenseList")
-
 ]

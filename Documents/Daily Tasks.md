@@ -114,3 +114,15 @@
 | 7/23/2022  | ALL                 | Middle Tier/Python        | Licenses List                  | Include template filters                                           | Done |
 | 7/24/2022 |ALL | ALL         | Unit Testing  | Test all views and models done so far | Done |
 | 7/25/2022  | ALL                 | ALL        | Bug Fixing                   | Fix all bugs found                                           | Done |
+| 7/26/2022  | -                 | -        | Documentation                | Document all features and views                                          | On Going |
+| 7/27/2022  | -                 | -        | Documentation                | Document all features and views                                          | On Going |
+| 7/28/2022  | -                 | -        | Documentation                | Document all features and views                                          | On Going |
+| 7/29/2022  | -                 | -        | Documentation                | Document all features and views                                          | On Going |
+| 7/30/2022 |ALL | ALL         | Unit Testing  | Test all views and models done so far | Done |
+| 7/31/2022  | ALL                 | ALL        | Bug Fixing                   | Fix all bugs found         
+| 1/08/2022  | -                 | -        | Documentation                | Document all features and views                                          | On Going |                               
+| 1/08/2022  | Uploader                 | Middle Tier/Python        | Upload UI change                | Change UI for License Upload and Edit  | Done |   
+| 2/08/2022  | ALL                 | Middle Tier/Python        | Chart.js                | Explore Chart.js and its features  | Done |   
+| 2/08/2022  | ALL                 | Middle Tier/Python        | APIs                | Explore API creation and dynamic modification  | Done |   
+| 3/08/2022  | ALL                 | Middle Tier/Python        | Dashoard                | Include charts and statistics  | Done |   
+| 3/08/2022  | ALL                 | UI       | Dashoard                | Dashboard re-design  | Done |   

@@ -14,7 +14,7 @@ from user_sign_in.models import User
 #file imports
 from user.decorators import allowedUsers
 from user.forms import licenseForm
-from user.utilityFunctions import licenseTrackingFunction, saveLicense, validityAndText, duplicateCheck
+from user.utilityFunctions import *
 from user.models import Status, licenseData, licenseTracking, operationType, namespace
 from user_sign_in.forms import modifyUserForm
 # Create your views here.
@@ -117,22 +117,7 @@ def dashboard(request):
         "context":"Dashboard",
     }
     context["name"] = request.user
-    try:
-        pendingLicenses = licenseData.objects.filter(status = Status.objects.get(status="Draft")).count()   
-    except:
-        pendingLicenses = 0
-    try:
-        approvedLicenses = licenseData.objects.filter(status = Status.objects.get(status="Approved")).count() 
-    except:
-        approvedLicenses = 0
-    try:
-        rejectedLicenses = licenseData.objects.filter(status = Status.objects.get(status="Rejected")).count() 
-    except:
-        rejectedLicenses = 0
-    try:
-        uploadedLicenses = licenseData.objects.all().count()     
-    except:
-        uploadedLicenses = 0  
+    pendingLicenses, approvedLicenses, rejectedLicenses, uploadedLicenses = dashboardOverallStats()
     contextObjects = licenseTracking.objects.exclude(date__lt = request.user.last_login)
 
     #Publisher only role
@@ -146,37 +131,27 @@ def dashboard(request):
             contextObjects = contextObjects.filter(operationType = operationType.objects.get(operation = "New") and operationType.objects.get(operation = "Modified"))
         if "Approver" not in request.session["role"]:
             contextObjects = contextObjects.exclude(operationType = operationType.objects.get(operation = "Modified")).exclude(operationType = operationType.objects.get(operation = "New"))
+        LicenseStatus = ["All", "Accepted", "Rejected", "Draft"]
+        LicenseStatusCount = [uploadedLicenses, approvedLicenses, rejectedLicenses, pendingLicenses]
+        context["var"] = LicenseStatus
+        context["val"] = LicenseStatusCount
     else:
-        try:
-            ApproverCount = User.objects.filter(groups__name__in = ["Approver"]).exclude(groups__name__in = ["Uploader"]).count()
-        except:
-            ApproverCount = 0
-        context["ApproverCount"] = ApproverCount
-        try:
-            UploaderCount  =  User.objects.filter(groups__name__in = ["Uploader"]).exclude(groups__name__in = ["Approver"]).count()
-        except:
-            UploaderCount = 0
-        context["UploaderCount"] = UploaderCount
-        try:
-            ApproverUploaderCount = User.objects.filter(groups__name__in = ["Approver"]).filter(groups__name__in = ["Uploader"]).count()
-        except:
-            ApproverUploaderCount = 0
-        context["ApproverUploaderCount"] = ApproverUploaderCount
-        try:
-            AdminCount = User.objects.filter(groups__name__in = ["Admin"]).count()
-        except:
-            AdminCount = 0
-        context["AdminCount"] = AdminCount 
-        try:
-            NoRoleCount = User.objects.exclude(groups__name__in = ["Approver","Uploader","Admin","Publisher"]).exclude(is_superuser=True).count()
-        except:
-            NoRoleCount = 0
+        NoRoleCount, AdminCount, ApproverUploaderCount, UploaderPublisherCount, ApproverPublisherCount, UploaderCount, ApproverCount, PublisherCount, totalUsers = UserCount(User)
         context["NoRoleCount"] = NoRoleCount 
-        try:
-            totalUsers = User.objects.exclude(is_superuser=True).count()
-        except:
-            totalUsers = 0
+        context["AdminCount"] = AdminCount
+        context["ApproverUploaderCount"] = ApproverUploaderCount
+        context["UploaderPublisherCount"] = UploaderPublisherCount
+        context["ApproverPublisherCount"] = ApproverPublisherCount
+        context["UploaderCount"] = UploaderCount
+        context["ApproverCount"] = ApproverCount    
+        context["PublisherCount"] = PublisherCount
         context["totalUsers"] = totalUsers 
+
+        Roles = ["No Role", "Admin", "Approver/Uploader", "Uploader/Publisher", "Approver/Publisher", "Uploaders", "Approver", "Publisher"]
+        RoleCount = [NoRoleCount, AdminCount, ApproverUploaderCount, UploaderPublisherCount, ApproverPublisherCount, UploaderCount, ApproverCount,  PublisherCount]
+        context["var"] = Roles
+        context["val"] = RoleCount
+
     changeInLicenses = contextObjects.count() 
     context["pendingLicenses"] = pendingLicenses
     context["approvedLicenses"] = approvedLicenses
@@ -502,5 +477,3 @@ def logoutAndLicenseList(request):
     logout(request)
     messages.success(request, "Logged Out Successfully!")
     return redirect("user_sign_in:displayApprovedLicenses")
-
-    
