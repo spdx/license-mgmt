@@ -6,14 +6,21 @@
 <div class="content-wrapper">
     <!-- Content -->
 
-  <!-- Success Messages -->
+  <!-- Messages -->
   {% for msg in messages %}
-  <div class="alert alert-success alert-dismissible" role="alert">
-    {{msg}}
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-  </div>
-  {% endfor %}
-  <!-- Success Messages -->
+  {%if 'warning' in msg.tags %}
+      <div class="alert alert-warning alert-dismissible" role="alert">
+          {{msg}}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+  {%else%}
+      <div class="alert alert-success alert-dismissible" role="alert">
+          {{msg}}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+  {%endif%}
+{% endfor %}
+<!-- Messages -->
 
   
     <div class="container-xxl flex-grow-1 container-p-y">    

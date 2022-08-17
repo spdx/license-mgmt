@@ -20,14 +20,21 @@
 {% block contents %}
     <!-- Striped Rows -->
 
-    <!-- Success Messages -->
+    <!-- Messages -->
     {% for msg in messages %}
-    <div class="alert alert-success alert-dismissible" role="alert">
-    {{msg}}
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
+        {%if 'warning' in msg.tags %}
+            <div class="alert alert-warning alert-dismissible" role="alert">
+                {{msg}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {%else%}
+            <div class="alert alert-success alert-dismissible" role="alert">
+                {{msg}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {%endif%}
     {% endfor %}
-    <!-- Success Messages -->
+    <!-- Messages -->
 
     </br>
     <div class="card-body">

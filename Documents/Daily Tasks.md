@@ -119,10 +119,27 @@
 | 7/28/2022  | -                 | -        | Documentation                | Document all features and views                                          | On Going |
 | 7/29/2022  | -                 | -        | Documentation                | Document all features and views                                          | On Going |
 | 7/30/2022 |ALL | ALL         | Unit Testing  | Test all views and models done so far | Done |
-| 7/31/2022  | ALL                 | ALL        | Bug Fixing                   | Fix all bugs found         
-| 1/08/2022  | -                 | -        | Documentation                | Document all features and views                                          | On Going |                               
-| 1/08/2022  | Uploader                 | Middle Tier/Python        | Upload UI change                | Change UI for License Upload and Edit  | Done |   
-| 2/08/2022  | ALL                 | Middle Tier/Python        | Chart.js                | Explore Chart.js and its features  | Done |   
-| 2/08/2022  | ALL                 | Middle Tier/Python        | APIs                | Explore API creation and dynamic modification  | Done |   
-| 3/08/2022  | ALL                 | Middle Tier/Python        | Dashoard                | Include charts and statistics  | Done |   
-| 3/08/2022  | ALL                 | UI       | Dashoard                | Dashboard re-design  | Done |   
+| 7/31/2022  | ALL                 | ALL        | Bug Fixing                   | Fix all bugs found                                           | Done |        
+| 08/01/2022  | -                 | -        | Documentation                | Document all features and views                                          | On Going |                               
+| 08/01/2022  | Uploader                 | Middle Tier/Python        | Upload UI change                | Change UI for License Upload and Edit  | Done |   
+| 08/02/2022  | ALL                 | Middle Tier/Python        | Chart.js                | Explore Chart.js and its features  | Done |   
+| 08/02/2022  | ALL                 | Middle Tier/Python        | APIs                | Explore API creation and dynamic modification  | Done |   
+| 08/03/2022  | ALL                 | Middle Tier/Python        | Dashoard                | Include charts and statistics  | Done |   
+| 08/04/2022  | ALL                 | UI       | Dashoard                | Dashboard re-design  | Done |   
+| 08/04/2022  | -                 | -        | Documentation                | Document all features and views                                          | On Going |
+| 08/05/2022  | -                 | -        | Documentation                | Document all features and views                                          | On Going |
+| 08/06/2022 |ALL | ALL         | Unit Testing  | Test all views and models done so far | Done |
+| 08/07/2022  | ALL                 | ALL        | Bug Fixing                   | Fix all bugs found                                           | Done |   
+| 08/08/2022  | -                 | -        | Documentation                | Document all features and views                                          | On Going |
+| 08/09/2022  | -                 | -        | Features List Updation            |   Document all features                                    | On Going |
+| 08/10/2022  | -                 | -        | License Export Format Discussion            |   Finalize the format   for exporting licenses                                 | On Going |
+| 08/11/2022  | -                 | -        | License Export Format Discussion            |   Finalize the format   for exporting licenses                                 | On Going |
+| 08/12/2022  | Middle Tier/ Python   | Publisher        | Views for header form            |   Design views for header form                                 | On Going |
+| 08/12/2022  | UI   | Publisher        | UI Design for Header           |   Design UI for header form                                 | Done |
+| 08/13/2022 |ALL | ALL         | Unit Testing  | Test all views and models done so far | Done |
+| 08/14/2022  | ALL                 | ALL        | Bug Fixing                   | Fix all bugs found                                           | Done |   
+| 08/15/2022  | Backend   | Publisher        | Model Creation           |   Create model for Publisher to enter header details                                 | Done |
+| 08/16/2022  | Middle Tier/ Python   | Publisher        | Model Form Creation           |   Create model form for Publisher to enter header details                                 | Done |
+| 08/16/2022  | Middle Tier/ Python   | Publisher        | Views updation for form           |   modify form to display entered details                                 | Done |
+| 08/17/2022  | UI   | Publisher        | UI for displaying form           |   Integrate model form into UI                                 | Done |
+| 08/17/2022  | Middle Tier/ Python   | Publisher        | Form validation           |   Validations and checks for Form                                 | Done |

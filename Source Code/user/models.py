@@ -71,3 +71,18 @@ class licenseTracking(models.Model):
         return displayInfo
 
 
+class exportHeaderFields(models.Model):
+    id = models.AutoField(primary_key=True)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
+    spdxVersion = models.CharField(max_length=100, null=False, blank=False)
+    dataLicense = models.CharField(max_length=100, null=False, blank=False)
+    spdxId = models.CharField(max_length=100, null=False, blank=False)
+    name = models.CharField(max_length=100, null=False, blank=False)
+    documentNamespace = models.CharField(max_length=100, null=False, blank=False)
+    creationInfoComment = models.TextField(null=False, blank=False)
+    creationInfoCreated = models.DateTimeField(default=datetime.now(), blank=False, null=False)
+    creationInfoCreatorsTools = models.CharField(max_length=100, blank=False, null=False)
+    creationInfoCreatorsOrganization = models.CharField(max_length=100, blank=False, null=False)
+    creationInfoCreatorsPerson = models.CharField(max_length=100,blank=False, null=False)
+    comment = models.TextField(null=False, blank=False)
+    setHeader = models.BooleanField(default=True) 

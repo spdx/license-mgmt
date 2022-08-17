@@ -1,6 +1,15 @@
+from pprint import isreadable
 from .models import Status, licenseData, licenseTracking, operationType, namespace
-from datetime import datetime
-from .forms import licenseForm
+from datetime import datetime as dt
+from .forms import licenseForm, ExportHeaderForm
+from django.http import HttpResponse
+from django.shortcuts import render
+import datetime
+import zipfile, os, io, requests
+import re
+#model import
+from user.models import licenseData
+from user.resources import licenseDataResource
 
 def saveLicense(form, status, text):
     filledForm = form.save(commit=False)   
@@ -47,7 +56,7 @@ def licenseTrackingFunction(name, user, operation, comments):
         license = licenseObject,
         operationType =  operationTypeObject,
         user = user,
-        date =datetime.now(),
+        date =dt.now(),
         comments = comments )
     newLicenseTracking.save()
 
@@ -112,3 +121,39 @@ def UserCount(User):
     except:
         totalUsers = 0
     return (NoRoleCount, AdminCount, ApproverUploaderCount, UploaderPublisherCount, ApproverPublisherCount, UploaderCount, ApproverCount, PublisherCount, totalUsers)
+
+
+def saveHeaderInfo(form, user):
+    filledForm = form.save(commit=False)
+    try: 
+        ExportHeaderForm.objects.get(user = user)
+    except:
+        filledForm.user = user
+    filledForm.creationInfoCreated = dt.now()
+    filledForm.save()
+
+def buildExportFile(list):
+    hasExtractedLicensingInfos = []
+    for licenseId in list:
+        license = licenseData.objects.get(id = licenseId)
+        text = license.licenseData
+        identifier = license.identifier
+        seeAlsos = re.findall(r"((?:(?<=[^a-zA-Z0-9]){0,}(?:(?:https?\:\/\/){0,1}(?:[a-zA-Z0-9\%]{1,}\:[a-zA-Z0-9\%]{1,}[@]){,1})(?:(?:\w{1,}\.{1}){1,5}(?:(?:[a-zA-Z]){1,})|(?:[a-zA-Z]{1,}\/[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\:[0-9]{1,4}){1})){1}(?:(?:(?:\/{0,1}(?:[a-zA-Z0-9\-\_\=\-]){1,})*)(?:[?][a-zA-Z0-9\=\%\&\_\-]{1,}){0,1})(?:\.(?:[a-zA-Z0-9]){0,}){0,1})", text)
+        comment = licenseTracking.objects.filter(license = license).order_by("-date")[0].comments        
+        if len(seeAlsos) != 0:
+            hasExtractedLicensingInfos.append({"licenseId": identifier, "extractedText": text, "comment": comment, "seeAlsos": seeAlsos})
+        else:
+            hasExtractedLicensingInfos.append({"licenseId": identifier, "extractedText": text, "comment": comment})
+    
+    return(hasExtractedLicensingInfos)
+
+def export(list):
+    # licenseResource = licenseDataResource()
+    # dataset = licenseResource.export()
+    # response = HttpResponse(dataset.json, content_type = "application/json")
+    # response['Content-Disposition'] = 'attachment; filename=License List' + str(datetime.datetime.now()) + \
+    #     '.json'
+    # return response
+    hasExtractedLicensingInfos = buildExportFile(list)
+    
+

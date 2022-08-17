@@ -1,5 +1,5 @@
 from django import forms
-from .models import licenseData, namespace
+from .models import licenseData, exportHeaderFields
 
 class licenseForm(forms.ModelForm):
     class Meta:
@@ -26,3 +26,56 @@ class licenseForm(forms.ModelForm):
                                                                 "rows":5, 
                                                                 "cols":20
                                                                 }), required=False)
+
+class ExportHeaderForm(forms.ModelForm):
+    class Meta:
+        model = exportHeaderFields
+        exclude = ["id","creationInfoCreated", "user"]
+    
+
+    spdxVersion = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'spdxVersion',
+                                                                'class': 'form-control'
+                                                                }))    
+    dataLicense = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'dataLicense',
+                                                                'class': 'form-control',
+                                                                }))   
+    spdxId = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'spdxId',
+                                                                'class': 'form-control'
+                                                                }))    
+    name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'name',
+                                                                'class': 'form-control',
+                                                                "rows":5, 
+                                                                "cols":20
+                                                                }), required=False)
+    documentNamespace = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'documentNamespace',
+                                                                'class': 'form-control',
+                                                                "rows":5, 
+                                                                "cols":20
+                                                                }), required=False)
+    
+    creationInfoComment = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'creationInfoComment',
+                                                                'class': 'form-control'
+                                                                }))    
+    creationInfoCreatorsTools = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Tools',
+                                                                'class': 'form-control',
+                                                                "rows":5, 
+                                                                "cols":20
+                                                                }), required=False)
+    creationInfoCreatorsOrganization = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Organization',
+                                                                'class': 'form-control',
+                                                                "rows":5, 
+                                                                "cols":20
+                                                                }), required=False)
+    creationInfoCreatorsPerson = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Person',
+                                                                'class': 'form-control',
+                                                                "rows":5, 
+                                                                "cols":20
+                                                                }), required=False)
+    comment = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'comment',
+                                                                'class': 'form-control',
+                                                                "rows":5, 
+                                                                "cols":20
+                                                                }), required=False)
+    setHeader = forms.CheckboxInput(attrs={'class': 'form-check-input', 
+                                            'id': 'SelectionInput', 
+                                            'name': 'SelectionInput'})

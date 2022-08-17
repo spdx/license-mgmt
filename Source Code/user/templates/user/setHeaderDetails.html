@@ -1,0 +1,184 @@
+{% extends "user/base.html" %}
+{% load static %}
+
+{% block contents %}
+<!-- Content -->
+<div class="content-wrapper">
+
+  <div class="container-xxl flex-grow-1 container-p-y">
+    <div class="row">
+      <!-- Form Layout -->
+      <div class="col-xxl">
+        <div class="card mb-4">
+          <div class="card-header d-flex align-items-center justify-content-between">
+          </div>
+          <div class="card-body">
+            <form id="formAuthentication" class="mb-3" method="POST" enctype="multipart/form-data">
+              {% csrf_token %}              
+              <div class="form-check mt-3">
+                <p><strong>{</strong></p>
+                 
+                  <div class="col-md-5">
+                    <div class="input-group">
+                      <span class="input-group-text" id="basic-addon14">"spdxVersion" :</span>
+                      {{form.spdxVersion}}
+                      <h4>&nbsp,</h4>
+                      {% if form.errors %}                  
+                        {% for error in form.spdxVersion.errors %}
+                          <div class="alert alert-warning" role="alert">{{error}}</div>
+                        {% endfor %}          
+                      {% endif %}
+                    </div>
+                    
+                    </br>
+
+                    <div class="input-group">
+                      <span class="input-group-text" id="basic-addon14">"dataLicense" :</span>
+                      {{form.dataLicense}}
+                      <h4>&nbsp,</h4>
+                      {% if form.errors %}                  
+                        {% for error in form.dataLicense.errors %}
+                          <div class="alert alert-warning" role="alert">{{error}}</div>
+                        {% endfor %}          
+                      {% endif %}
+                    </div>                 
+                    </br>
+
+                    <div class="input-group">
+                      <span class="input-group-text" id="basic-addon14">"SPDXID" :</span>
+                      {{form.spdxId}}
+                      <h4>&nbsp,</h4>
+                      {% if form.errors %}                  
+                        {% for error in form.spdxId.errors %}
+                          <div class="alert alert-warning" role="alert">{{error}}</div>
+                        {% endfor %}          
+                      {% endif %}
+                    </div>
+                    </br>
+  
+                    <div class="input-group">
+                      <span class="input-group-text" id="basic-addon14">"name" :</span>
+                      {{form.name}}
+                      <h4>&nbsp,</h4>
+                      {% if form.errors %}                  
+                        {% for error in form.name.errors %}
+                          <div class="alert alert-warning" role="alert">{{error}}</div>
+                        {% endfor %}          
+                      {% endif %}
+                    </div>
+                    </br>
+
+                    <div class="input-group">
+                    <span class="input-group-text" id="basic-addon14">"Document Namespace" :</span>
+                    {{form.documentNamespace}}
+                    <h4>&nbsp,</h4>
+                    {% if form.errors %}                  
+                        {% for error in form.documentNamespace.errors %}
+                          <div class="alert alert-warning" role="alert">{{error}}</div>
+                        {% endfor %}          
+                      {% endif %}
+                    </div>
+                    </br>
+
+                    {% comment %} Creation info {% endcomment %}                    
+                    <strong>"creationInfo" : </strong>
+                    <p><strong>{</strong></p>
+                    <div class="form-check mt-3">
+                      <div class="input-group">
+                        <span class="input-group-text" id="basic-addon14">"comment" :</span>
+                        {{form.creationInfoComment}}
+                        <h4>&nbsp,</h4>
+                      </div>
+                      </br>
+                      
+
+                      {% comment %} Creators {% endcomment %}
+                      <strong>"creators" : </strong>                                           
+                      <p><strong>{</strong></p>
+                      <div class="form-check mt-3">                                              
+                        <p><strong>[</strong></p>
+                        <div class="input-group">
+                          <span class="input-group-text" id="basic-addon14">"Tool" :</span>
+                          {{form.creationInfoCreatorsTools}}
+                          <h4>&nbsp,</h4>
+                          {% if form.errors %}                  
+                            {% for error in form.creationInfoCreatorsTools.errors %}
+                              <div class="alert alert-warning" role="alert">{{error}}</div>
+                            {% endfor %}          
+                          {% endif %}
+                        </div>
+                        </br>
+
+                        <div class="input-group">
+                          <span class="input-group-text" id="basic-addon14">"Organization" :</span>
+                          {{form.creationInfoCreatorsOrganization}}
+                          <h4>&nbsp,</h4>
+                          {% if form.errors %}                  
+                            {% for error in form.creationInfoCreatorsOrganization.errors %}
+                              <div class="alert alert-warning" role="alert">{{error}}</div>
+                            {% endfor %}          
+                          {% endif %}
+                        </div>
+                        </br>
+
+                        <div class="input-group">
+                          <span class="input-group-text" id="basic-addon14">"Person" :</span>
+                          {{form.creationInfoCreatorsPerson}}
+                          <h4>&nbsp,</h4>
+                          {% if form.errors %}                  
+                            {% for error in form.creationInfoCreatorsPerson.errors %}
+                              <div class="alert alert-warning" role="alert">{{error}}</div>
+                            {% endfor %}          
+                          {% endif %}
+                        </div>
+                        </br>
+                        <p><strong>]</strong></p>
+                      </div>
+                      {% comment %} End of Creators {% endcomment %}
+                    <p><strong>},</strong></p>
+                    </div>
+                    {% comment %} End ofCreation info {% endcomment %}                  
+                  <p><strong>},</strong></p>
+                  <div class="input-group">
+                    <span class="input-group-text" id="basic-addon14">"comment" :</span>
+                    {{form.comment}}
+                    {% if form.errors %}                  
+                      {% for error in form.comment.errors %}
+                        <div class="alert alert-warning" role="alert">{{error}}</div>
+                      {% endfor %}          
+                    {% endif %}
+                  </div>
+                <p><strong>}</strong></p>
+                
+              {{form.setHeader}}
+                <strong>Do you want to set this header for all exports?</strong>
+              </div>             
+            </br>
+            {% if form.errors %}                 
+              {% for error in form.non_field_errors %}
+              <div class="alert alert-primary" role="alert">{{error}}</div>
+              {% endfor %}                
+            {% endif %}             
+              <div class="row justify-content">
+                <div class="col-sm-10">
+                  <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+              </div>              
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  (function() {
+      window.location("{% url "user:dashboard" %}");
+  })(); 
+</script>
+
+
+  <!-- Content -->
+{% endblock %}

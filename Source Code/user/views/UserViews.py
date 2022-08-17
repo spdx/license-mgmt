@@ -13,9 +13,9 @@ from user_sign_in.models import User
 
 #file imports
 from user.decorators import allowedUsers
-from user.forms import licenseForm
+from user.forms import licenseForm, ExportHeaderForm
 from user.utilityFunctions import *
-from user.models import Status, licenseData, licenseTracking, operationType, namespace
+from user.models import *
 from user_sign_in.forms import modifyUserForm
 # Create your views here.
 
@@ -188,6 +188,22 @@ class searchLicensesView(LoginRequiredMixin, ListView):
         context['licenses'] = querySet  
         context['context'] = '{} License List'.format(slug)     
         return context 
+    
+    def post(self, request, *args, **kwargs):
+        licenseList = list()
+        for license in licenseData.objects.filter(status = Status.objects.get(status = "Approved")):
+            searchLicense = "{}".format(license.id)
+            if request.POST.get(searchLicense) != None:
+                licenseList.append(license.id)
+        if len(licenseList) == 0:
+            messages.warning(request, "Select atleast one License for export!")
+            return redirect("user:viewLicenses", slug="Approved")
+        isExport = self.request.POST.get("action") == "Export"
+        isExportAndZip = self.request.POST.get("action") == "ExportAndZip"
+        if isExport and not isExportAndZip:
+            return export(licenseList)
+        else:
+            return export(licenseList)
 
 
 class licenseTrackingView(LoginRequiredMixin, ListView):
@@ -221,6 +237,32 @@ class trackViews(LoginRequiredMixin, ListView):
         context['secondaryContext'] = 'Since last login'
         context["ChangesTracking"] = True  
         return context  
+
+@login_required
+def headerMaintainance(request):
+    if "Publisher" in request.session['role']:  
+
+        headerDetails = get_object_or_404(exportHeaderFields, user=request.user)       
+        context = dict()
+        context["context"]  = "Licenses Export: "
+        context["secondaryContext"] = "Header Maintainance"
+
+        if request.method == 'POST':
+            form = ExportHeaderForm(request.POST or None, instance = headerDetails) 
+            if form.is_valid():
+                user = request.user
+                saveHeaderInfo(form, user)
+                messages.success(request, "Header Info saved successfully!")
+                return redirect("user:viewLicenses",slug="Approved")
+            else:
+                context['form'] = form
+                return render(request, "user/setHeaderDetails.html", context)  
+        form = ExportHeaderForm(instance = headerDetails)           
+        context["form"] = form
+        return render(request, "user/setHeaderDetails.html", context)
+    else:
+        return render(request, "user/wrongUser.html")
+
 
 @login_required
 def profile(request):
@@ -477,3 +519,4 @@ def logoutAndLicenseList(request):
     logout(request)
     messages.success(request, "Logged Out Successfully!")
     return redirect("user_sign_in:displayApprovedLicenses")
+    

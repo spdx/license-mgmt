@@ -46,26 +46,15 @@ def checkUser(request):
         return render(request, "license_management_system/noRole.html")
 
    
-def export(request, slug):
+def export(request):
     licenseResource = licenseDataResource()
     dataset = licenseResource.export()
-    if slug == "csv":
-        response = HttpResponse(dataset.csv, content_type = "text/csv")
-        response['Content-Disposition'] = 'attachment; filename=License List' + str(datetime.datetime.now()) + \
-            '.csv'
-    elif slug == "json":
-        response = HttpResponse(dataset.json, content_type = "application/json")
-        response['Content-Disposition'] = 'attachment; filename=License List' + str(datetime.datetime.now()) + \
-            '.json'
-    elif slug == "xls":
-        response = HttpResponse(dataset.xls, content_type = "application/vnd.ms=excel")
-        response['Content-Disposition'] = 'attachment; filename=License List' + str(datetime.datetime.now()) + \
-            '.xls'
-    else:
-        resource = None
+    response = HttpResponse(dataset.json, content_type = "application/json")
+    response['Content-Disposition'] = 'attachment; filename=License List' + str(datetime.datetime.now()) + \
+        '.json'
     return response
 
-def zipAndExport(request, slug):
+def zipAndExport(request):
     # response = HttpResponse(content_type='application/zip')
     # zip_file = zipfile.ZipFile(response, 'w')
     # zip_file.write()
