@@ -267,7 +267,8 @@
                                         >
                                     {% endif %}
                                     </div>
-                                </div>
+                                </div>                                
+                                    
                             </td>
                         {% endif %}                        
                         </tr>  
@@ -275,6 +276,18 @@
                 </tbody>
                 </table> 
             </div>     
+            {% if "Approver" in request.session.role and "Draft" in context %}
+                <!--Export-->
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="demo-inline-spacing">                        
+                        <div class="btn-group">
+                            <input type="submit" value="Export and Zip" class="btn btn-primary" name ="ApproverPOST">
+                        </div>
+                    </div>
+                </form>
+                <!--/ Export-->
+            {%endif%}
             <script>
                 $(document).ready( function () {
                     $('#LicensesView').DataTable();

@@ -189,22 +189,25 @@ class searchLicensesView(LoginRequiredMixin, ListView):
         context['context'] = '{} License List'.format(slug)     
         return context 
     
-    def post(self, request, *args, **kwargs):
-        licenseList = list()
-        for license in licenseData.objects.filter(status = Status.objects.get(status = "Approved")):
-            searchLicense = "{}".format(license.id)
-            if request.POST.get(searchLicense) != None:
-                licenseList.append(license.id)
-        if len(licenseList) == 0:
-            messages.warning(request, "Select atleast one License for export!")
-            return redirect("user:viewLicenses", slug="Approved")
-        isExport = self.request.POST.get("action") == "Export"
-        isExportAndZip = self.request.POST.get("action") == "ExportAndZip"
-        request.session["list"] = licenseList
-        if isExport and not isExportAndZip:
-            return export(request)
+    def post(self, request, *args, **kwargs):       
+        if 'ApproverPOST' not in request.POST: 
+            licenseList = list()
+            for license in licenseData.objects.filter(status = Status.objects.get(status = "Approved")):
+                searchLicense = "{}".format(license.id)
+                if request.POST.get(searchLicense) != None:
+                    licenseList.append(license.id)
+            if len(licenseList) == 0:
+                messages.warning(request, "Select atleast one License for export!")
+                return redirect("user:viewLicenses", slug="Approved")
+            isExport = self.request.POST.get("action") == "Export"
+            isExportAndZip = self.request.POST.get("action") == "ExportAndZip"
+            request.session["list"] = licenseList
+            if isExport and not isExportAndZip:
+                return export(request)
+            else:
+                return exportAndZip(request)
         else:
-            return exportAndZip(request)
+            return exportAndZipApprover(request)
 
 
 class licenseTrackingView(LoginRequiredMixin, ListView):

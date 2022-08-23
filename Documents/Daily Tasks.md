@@ -155,3 +155,6 @@
 | 8/22/2022 | ALL                 | UI                  | Dashboard Statistics                         | Customize dashboard according to the role                                               | Done     |
 | 8/23/2022 | Publisher           | Middle Tier/ Python | Export and Zip                               | Write the JSON file and create an in-memory zip file                                    | Done     |
 | 8/23/2022 | Publisher           | Middle Tier/ Python | View for header review                       | views for header review and option to either continue or save the data                  | Done     |
+| 8/23/2022 | Publisher           | UI                  | Export Option                                | Option to export in-draft licenses                                           | Done     |
+| 8/23/2022 | Publisher           | Middle Tier/ Python | Export Option                                | Views and functions to export in-draft licenses                                           | Done     |
+| 8/23/2022 | Publisher           | Middle Tier/ Python | Export Option                                | function to zip the in-memory license JSON objects and stream it as HTTP Response                                | Done     |

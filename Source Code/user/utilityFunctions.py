@@ -251,3 +251,34 @@ def exportAndZip(request, newHeaderInfo = None):
     response['Content-Disposition'] = 'attachment; filename=Zip List' + str(datetime.datetime.now()) + '.zip'
     request.session["list"] = None
     return response  
+
+
+
+def ApproverJSONBuilder(id):
+    licenseObject = licenseData.objects.get(id = id)
+    licenseJson = {}
+    licenseJson["title"] = licenseObject.title
+    licenseJson["name"] = licenseObject.name 
+    licenseJson["identifier"] = licenseObject.identifier 
+    licenseJson["namespace"] = str(licenseObject.namespace)
+    licenseJson["licenseData"] = licenseObject.licenseData 
+    jsonLicenseExport = json.dumps(licenseJson, indent = 4) 
+    return jsonLicenseExport
+
+def exportAndZipApprover(request):
+    in_memory = BytesIO()
+    zf = zipfile.ZipFile(in_memory, mode="w")    
+    #If you have data in text format that you want to save into the zip as a file    
+    licenseObjects = licenseData.objects.filter(status = Status.objects.get(status = "Draft"))
+    for license in licenseObjects:
+        zf.writestr('{}: {}'.format(license.id,license.title) + '.json', ApproverJSONBuilder(license.id))    
+    #Close the zip file
+    zf.close()
+    #Go to beginning
+    in_memory.seek(0)    
+    #read the data
+    data = in_memory.read()
+    response = HttpResponse(data, content_type='application/zip')
+    response['Content-Disposition'] = 'attachment; filename=Zip List' + str(datetime.datetime.now()) + '.zip'
+    request.session["list"] = None
+    return response 
