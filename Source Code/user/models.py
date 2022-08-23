@@ -85,4 +85,3 @@ class exportHeaderFields(models.Model):
     creationInfoCreatorsOrganization = models.CharField(max_length=100, blank=False, null=False)
     creationInfoCreatorsPerson = models.CharField(max_length=100,blank=False, null=False)
     comment = models.TextField(null=False, blank=False)
-    setHeader = models.BooleanField(default=True) 

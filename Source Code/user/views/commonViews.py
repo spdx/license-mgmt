@@ -1,5 +1,6 @@
 #package imports
-from django.shortcuts import redirect
+from email.header import Header
+from django.shortcuts import redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.http import HttpResponse
@@ -11,8 +12,10 @@ import datetime
 import zipfile, os, io, requests
 
 #model import
-from user.models import licenseData
+from user.models import *
 from user.resources import licenseDataResource
+from user.forms import *
+from user.utilityFunctions import *
 # Create your views here.
 
 @login_required
@@ -45,18 +48,38 @@ def checkUser(request):
     else:
         return render(request, "license_management_system/noRole.html")
 
-   
-def export(request):
-    licenseResource = licenseDataResource()
-    dataset = licenseResource.export()
-    response = HttpResponse(dataset.json, content_type = "application/json")
-    response['Content-Disposition'] = 'attachment; filename=License List' + str(datetime.datetime.now()) + \
-        '.json'
-    return response
+@login_required
+def headerReview(request):
+    if "Publisher" in request.session['role']:  
 
-def zipAndExport(request):
-    # response = HttpResponse(content_type='application/zip')
-    # zip_file = zipfile.ZipFile(response, 'w')
-    # zip_file.write()
-    # response['Content-Disposition'] = 'attachment; filename={}'.format(str(datetime.datetime.now()))
-    return render(request, "license_management_system/underMaintainance.html")
+        headerDetails = get_object_or_404(exportHeaderFields, user=request.user)       
+        context = dict()
+        context["context"]  = "Licenses Export: "
+        context["secondaryContext"] = "Header Review"
+        context["review"] = True
+
+        if request.method == 'POST':
+            form = ExportHeaderForm(request.POST or None, instance = headerDetails) 
+            if form.is_valid():
+                statusUpdate = request.POST.get("action") == "update"
+                statusExport = request.POST.get("action") == "export"
+                user = request.user
+                if statusUpdate and not statusExport:
+                    saveHeaderInfo(form, user)
+                    HeaderInfo = exportHeaderFields.objects.get(user = request.user)   
+                else:
+                    HeaderInfo = form.save(commit = False)
+                
+                if request.session["Option"] == "zip":
+                    return exportAndZip(request, HeaderInfo)
+                else:
+                    return export(request, HeaderInfo)
+            else:
+                context['form'] = form
+                return render(request, "user/setHeaderDetails.html", context)  
+        else:
+            form = ExportHeaderForm(instance = headerDetails)           
+            context["form"] = form
+            return render(request, "user/setHeaderDetails.html", context)
+    else:
+        return render(request, "user/wrongUser.html")  

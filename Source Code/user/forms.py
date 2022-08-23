@@ -76,6 +76,3 @@ class ExportHeaderForm(forms.ModelForm):
                                                                 "rows":5, 
                                                                 "cols":20
                                                                 }), required=False)
-    setHeader = forms.CheckboxInput(attrs={'class': 'form-check-input', 
-                                            'id': 'SelectionInput', 
-                                            'name': 'SelectionInput'})

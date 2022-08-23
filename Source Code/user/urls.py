@@ -21,8 +21,7 @@ app_name = "user"
 urlpatterns = [
     #common urls
     path("loadingDashboard",commonViews.checkUser, name="checkUser"),
-    path("export",commonViews.export, name="export"),
-    path("zipAndexport",commonViews.zipAndExport, name="zipAndexport"), 
+    path("headerReview",commonViews.headerReview, name="headerReview"),
 
     #User urls
     path('', RedirectView.as_view(url=reverse_lazy('admin:index')), name="adminLogin"),

@@ -1,145 +1,157 @@
-| Date      | Application Segment | Flow               | Task Name                                    | Description                                                                             | Status   |
-| --------- | ------------------- | ------------------ | -------------------------------------------- | --------------------------------------------------------------------------------------- | -------- |
-| 6/13/2022 | MIddle Tier/ Python | \-                 | Creating the end to end Django Flow          | Designing the approver and uploader flow in Django                                      | Done     |
-| 6/13/2022 | UI                  | \-                 | Perpwork                                     | HTML, CSS ( and Bootstrap) Layout and JavaScript calls defined                          | Done     |
-| 6/13/2022 | UI                  | Uploader           | Design - Uploader Flow                       | Designing the application based on the emails from Alexios                              | Done     |
-| 6/13/2022 | UI                  | Admin              | Design - Admin Flow                          | Designing the application based on the emails from  Alexios                             | On Going |
-| 6/13/2022 | MIddle Tier/ Python | \-                 | Understand the License File                  | Understand the License File sent across by SPDX                                         | On Going |
-| 6/13/2022 | MIddle Tier/ Python | \-                 | Understand the License File                  | Review and Analyse the Tree Data Structure of the Canonical Format                      | On Going |
-| 6/14/2022 | Backend             | \-                 | Understanding the deployment process         | List out the various hosting methods                                                    | Done     |
-| 6/14/2022 | Backend             | \-                 | AWS Services                                 | List out the AWS services to be used for optimal experience                             | Done     |
-| 6/14/2022 | Backend             | \-                 | Find the Best SQL Databse for application    | Finalized between SQLite and Prostgres                                                  | Done     |
-| 6/14/2022 | MIddle Tier/ Python | All                | User - login, register and role creation     | Define the model for the user object, create django forms for the same with validations | Done     |
-| 6/14/2022 | MIddle Tier/ Python | All                | User - login, register and role creation     | Define validation rules for the form and display error messages                         | Done     |
-| 6/15/2022 | UI                  | All                | User - login, register and role creation     | Design the UI for user sign-in, registering and forgot password screens                 | Done     |
-| 6/15/2022 | Middle Tier/ Python | All                | User Session                                 | Provide Authentication and define the session                                           | Done     |
-| 6/16/2022 | Backend             | All                | License tables as per version 2              | Define the models for license table                                                     | Done     |
-| 6/16/2022 | Middle Tier/ Python | All                | model based form for license upload          | design the django form based on the license model                                       | Done     |
-| 6/16/2022 | Middle Tier/ Python | Approver/ Uploader | user redirect                                | redirect dashborad based on user role                                                   | Done     |
-| 6/16/2022 | UI                  | Uploader           | license upload feature in uploader dashboard | license upload feature in uploader dashboard                                            | Done     |
-| 6/16/2022 | Middle Tier/ Python | Uploader           | user session management                      | define user session rules and timeout period                                            | Done     |
-| 6/17/2022 | Middle Tier/ Python | Uploader           | Trigger creation                             | Trigger to fill model on POST request and save the  model object                        | Done     |
-| 6/17/2022 | Middle Tier/ Python | Uploader           | license view                                 | feature to view all uploaded licenses                                                   | Done     |
-| 6/17/2022 | Backend             | \-                 | DB tables structure re-definition            | redefine tables based on Mentor Reviews                                                 | Done     |
-| 6/18/2022 | UI                  | Uploader           | License Detail View                          | Design UI to view individual license Details                                            | Done     |
-| 6/18/2022 | Middle Tier/ Python | Uploader           | License Detail View                          | Define the view to view license Details and provide dynamic urls for each license       | Done     |
-| 6/18/2022 | ALL                 | Uploader           | Unit Test                                    | Test all views and models done so far                                                   | Done     |
-| 6/18/2022 | ALL                 | Uploader           | Bug Fixing                                   | Fix all bugs found                                                                      | Done     |
-| 6/19/2022 | Middle Tier/ Python | Uploader           | License Edit Option                          | Created view to edit License form                                                       | Done     |
-| 6/19/2022 | UI                  | Uploader           | License Edit Option                          | UI to edit license form                                                                 | Done     |
-| 6/19/2022 | Backend             | Uploader           | License Edit Option                          | Updating the model for the license data                                                 | Done     |
-| 6/20/2022 | UI                  | Approver/ Uploader | Table Sorting                                | Ajax calls to have a responsive table                                                   | Done     |
-| 6/20/2022 | UI                  | Approver           | View uploaded licenses                       | UI for approver to view uploaded licenses                                               | Done     |
-| 6/20/2022 | Middle Tier/ Python | Approver           | View uploaded licenses                       | View and functions for approving/rejecting licenses                                     | Done     |
-| 6/20/2022 | Backend             | Approver           | View uploaded licenses                       | Model rendering and DataBase updation                                                   | Done     |
-| 6/20/2022 | UI                  | Approver           | Search for Licenses                          | UI for approver to view all licenses                                                    | Done     |
-| 6/20/2022 | Middle Tier/ Python | Approver           | Search for Licenses                          | View and functions for searching all licenses                                           | Done     |
-| 6/21/2022 | UI                  | Approver           | Approve/ Reject Liceses                      | UI for approver to approve/ reject licenes                                              | Done     |
-| 6/21/2022 | Middle Tier/ Python | Approver           | Approve/ Reject Liceses                      | View and functions to approve/ reject licenes                                           | Done     |
-| 6/21/2022 | Backend             | Approver           | Approve/ Reject Liceses                      | model and database updation                                                             | Done     |
-| 6/21/2022 | Middle Tier/ Python | Uploader           | View Rejected Licenses                       | Updation view to include rejected licenses                                              | Done     |
-| 6/22/2022 | UI                  | Uploader           | Quick access to view License Details         | Update Uploader Dashboard to access Licenses quickly                                    | Done     |
-| 6/22/2022 | UI                  | Approver           | Quick access to view License Details         | Update Approver Dashboard to access Licenses quickly                                    | Done     |
-| 6/22/2022 | Middle Tier/ Python | Approver/ Uploader | Session handling and last login feature      | Option to view changes since last login                                                 | Done     |
-| 6/22/2022 | UI                  | Approver/ Uploader | Session handling and last login feature      | UI to view changes since last login                                                     | Done     |
-| 6/23/2022 | UI                  | Approver           | Design screen                                | Design UI to track the status change of the license                                     | Done     |
-| 6/23/2022 | Middle Tier/Python  | Approver           | View to check the license tracking           | Define a class based view to cheack the change in status of the license                 | Done     |
-| 6/23/2022 | UI                  | Approver/Uploader  | Redesign screen to view the latest comments  | UI to view the latest comment from the user who last modified the license status        | Done     |
-| 6/23/2022 | Backend             | Admin              | Change table views                           | Change the view of the tables and add option to filter the contents                     | Done     |
-| 6/24/2022 | \-                  | ALL                | Deploy the application                       | Deploy the application on AWS and install SQLite on EC2 Instance                        | Done     |
-| 6/24/2022 | \-                  | ALL                | Demo the application                         | Give a demo of the application to Alexios and note down the comments                    | Done     |
-| 6/25/2022 | ALL                 | Approver           | Unit Test                                    | Test all views and models done so far                                                   | Done     |
-| 6/25/2022 | ALL                 | Uploader           | Unit Test                                    | Test all views and models done so far                                                   | Done     |
-| 6/26/2022 | ALL                 | Approver           | Bug Fixing                                   | Fix all bugs found (Tracking error)                                                     | Done     |
-| 6/26/2022 | ALL                 | Uploader           | Bug Fixing                                   | Fix all bugs found                                                                      | Done     |
-| 6/27/2022 | UI                  | \-                 | Home Screen                                  | Design Home screen displaying all approved Licenses                                     | Done     |
-| 6/27/2022 | Middle Tier/ Python | \-                 | Home Screen                                  | Define the view to display all approved Licenses                                        | Done     |
-| 6/27/2022 | Backend             | \-                 | Model Redifinition                           | Redefine model validations and make migrations                                          | Done     |
-| 6/28/2022 | UI                  | Uploader           | Form Errors                                  | Change UI to display form errors if any                                                 | Done     |
-| 6/28/2022 | Middle Tier/ Python | Uplaoder           | Form Errors                                  | Change context to include form errors and display them                                  | Done     |
-| 6/28/2022 | Backend             | \-                 | Model Fields Redefinition                    | Redefine model as per Alexios' comments                                                 | Done     |
-| 6/28/2022 | Middle Tier/ Python | \-                 | Incorporate model redefinition               | Change views and forms to work with the change in model field                           | Done     |
-| 6/28/2022 | UI                  | \-                 | Incorporate model redefinition               | Change UI and error messages to work with the change in model field                     | Done     |
-| 6/28/2022 | UI                  | Approver/Uploader  | Change Menu Options                          | Delete Redundant menu options and rename the others                                     | Done     |
-| 6/29/2022 | Middle Tier/ Python | Approver/Uploader  | File Upload Option                           | Update upload and edit views to include file upload and give necessary error messages   | Done     |
-| 6/29/2022 | UI                  | Approver/Uploader  | File Upload Option                           | Change UI to include file upload options. Validate the file type using JS               | Done     |
-| 6/29/2022 | Model               | \-                 | Change constraintsfor the license Data table | Redefine model constraints as per the reiew comments on Github                          | Done     |
-| 6/30/2022 | Middle Tier/ Python | Uploader           | Basic dedplication implementation            | Check if uploaded fle or text is already present                                        | Done     |
-| 6/29/2022 | Middle Tier/ Python | Uploader           | File upload errors                           | Fix errors when both text s entered and file is uploaded                                | Done     |
-| 6/29/2022 | UI                  | Uploader           | Styling changes                              | Change Styling to make application more User Friendly                                   | Done     |
-| 6/30/2022 | Middle Tier/ Python | All                | Make the application menu flat               | Create a single view and template for all users                                         | Done     |
-| 6/30/2022 | UI                  | All                | Make the application menu flat               | Dynamically populate screens based on user role                                         | Done     |
-| 6/31/2022 | ALL                 | Approver        | Unit Test                    | Test all views and models done so far                        | Done |
-| 6/31/2022 | ALL                 | Uploader        | Unit Test                    | Test all views and models done so far                        | Done |
-| 7/1/2022  | ALL                 | Approver        | Bug Fixing                   | Fix all bugs found (Tracking error)                          | Done |
-| 7/1/2022  | ALL                 | Uploader        | Bug Fixing                   | Fix all bugs found                                           | Done |
-| 7/2/2022  | UI                  | Admin           | Desgin the admin screen      | Design the UI for Admin                                      | Done |
-| 7/2/2022  | Middle Tier/ Python | Admin           | Design Views for Admin       | Define views for admin login                                 | Done |
-| 7/2/2022  | Middle Tier/ Python | Admin           | License Delete               | Define views for admin to delete licenses                    | Done |
-| 7/2/2022  | Middle Tier/ Python | Admin           | Namespace                    | Define views for admin to set namespace                      | Done |
-| 7/3/2022  | Backend             | Admin           | Namespace                    | Change Database tables structure                             | Done |
-| 7/3/2022  | Middle Tier/ Python | Admin           | Role Setting and Updating    | Define views for Admin to set and delete roles for all users | Done |
-| 7/3/2022  | Middle Tier/ Python | ALL             | User validaions              | Redefine user validations to include 'Admin'                 | Done |
-| 7/3/2022  | Middle Tier/ Python | Uploader/ Admin | File Upload error correction | Changes to Upload view                                       | Done |
-| 7/3/2022  | Middle Tier/ Python | ALL             | Export                       | Testing Export Option                                        | Done |
-| 7/4/2022 | Backend             | Admin              | Users                   | View users data                                                 | Done |
-| 7/4/2022 | Middle Tier/ Python | Uploader           | Update and Edit changes | Change logic for Update and edit                                | Done |
-| 7/4/2022 | Middle Tier/ Python | ALL                | User profile            | View to change suers details                                    | Done |
-| 7/5/2022 | Middle Tier/ Python | Uploader/ Approver | license Export option   | Views to export license details                                 | Done |
-| 7/5/2022 | Middle Tier/ Python | Superuser          | Export / Import option  | Option for superuser to export and import many licenses at once | Done |
-| 7/6/2022 | ALL | -          | Test  | Test all views done so far before deploying the second version of the app | Done |
-| 7/7/2022 | ALL | -          | Bug Fixing  | Fix all the bugs found before deploying the second version of the app | Done |
-| 7/7/2022 | Middle Tier/ Python | ALL         | Increase export format options  | Increse the number of formats for exporting license Data | On Going |
-| 7/8/2022 | Middle Tier/ Python | ALL         | Increase export format options  | Increse the number of formats for exporting license Data | Done |
-| 7/9/2022 |ALL | ALL         | Unit Testing  | Test all views and models done so far | Done |
-| 7/10/2022  | ALL                 | ALL        | Bug Fixing                   | Fix all bugs found                                           | Done |
-| 7/11/2022  | -                 | -        | Documentation                | Document all features and views                                          | On Going |
-| 7/12/2022  | -                 | -        | Documentation                | Document all features and views                                          | On Going |
-| 7/13/2022  | -                 | -        | Documentation                | Document all features and views                                          | On Going |
-| 7/13/2022  | -                 | -        | Features List                | List out all features developed and to be done during in the product | On Going |
-| 7/14/2022  | -                 | -        | Documentation                | Document all features and views                                          | On Going |
-| 7/14/2022  | -                 | -        | Features List                | List out all features developed and to be done during in the product| Done |
-| 7/15/2022  | -                 | -        | Documentation                | Document all features and views                                          | On Going |
-| 7/16/2022 |ALL | ALL         | Unit Testing  | Test all views and models done so far | Done |
-| 7/17/2022  | ALL                 | ALL        | Bug Fixing                   | Fix all bugs found                                           | Done |
-| 7/18/2022  | Uploader                 | Middle Tier/Python        | Upload/Edit view                  | Change the view for upload/edit to remove de-duplication  errors                                        | Done |
-| 7/18/2022  | Publisher                | Backend        | Create new role                  | Create a new role called Publisher                                           | Done |
-| 7/19/2022  | Publisher                 | UI        | Design UI                  | Design the UI for the publisher                                          | Done |
-| 7/20/2022  | Admin                 | Middle Tier/Python        | User Activity                  | Include the option to view the licenes acted upon by the user                                          | Done |
-| 7/20/2022  | Publisher                 | UI        | Dashboard                  | Design the dashboard for the publisher                                          | Done |
-| 7/21/2022  | Publisher                 | Middle Tier/Python        | views and functions                  | Create the views and functions for the                                          | Done |
-| 7/21/2022  | Publisher                 | Middle Tier/Python        | Export                  | view to export and zip                                          | On Going |
-| 7/22/2022  | ALL                 | Middle Tier/Python        | Dates                  | Add dates for all the tables and comments                                          | Done |
-| 7/23/2022  | ALL                 | Middle Tier/Python        | Licenses List                  | URL Valudations for the license List                                          | Done |
-| 7/23/2022  | ALL                 | Middle Tier/Python        | Licenses List                  | Include template filters                                           | Done |
-| 7/24/2022 |ALL | ALL         | Unit Testing  | Test all views and models done so far | Done |
-| 7/25/2022  | ALL                 | ALL        | Bug Fixing                   | Fix all bugs found                                           | Done |
-| 7/26/2022  | -                 | -        | Documentation                | Document all features and views                                          | On Going |
-| 7/27/2022  | -                 | -        | Documentation                | Document all features and views                                          | On Going |
-| 7/28/2022  | -                 | -        | Documentation                | Document all features and views                                          | On Going |
-| 7/29/2022  | -                 | -        | Documentation                | Document all features and views                                          | On Going |
-| 7/30/2022 |ALL | ALL         | Unit Testing  | Test all views and models done so far | Done |
-| 7/31/2022  | ALL                 | ALL        | Bug Fixing                   | Fix all bugs found                                           | Done |        
-| 08/01/2022  | -                 | -        | Documentation                | Document all features and views                                          | On Going |                               
-| 08/01/2022  | Uploader                 | Middle Tier/Python        | Upload UI change                | Change UI for License Upload and Edit  | Done |   
-| 08/02/2022  | ALL                 | Middle Tier/Python        | Chart.js                | Explore Chart.js and its features  | Done |   
-| 08/02/2022  | ALL                 | Middle Tier/Python        | APIs                | Explore API creation and dynamic modification  | Done |   
-| 08/03/2022  | ALL                 | Middle Tier/Python        | Dashoard                | Include charts and statistics  | Done |   
-| 08/04/2022  | ALL                 | UI       | Dashoard                | Dashboard re-design  | Done |   
-| 08/04/2022  | -                 | -        | Documentation                | Document all features and views                                          | On Going |
-| 08/05/2022  | -                 | -        | Documentation                | Document all features and views                                          | On Going |
-| 08/06/2022 |ALL | ALL         | Unit Testing  | Test all views and models done so far | Done |
-| 08/07/2022  | ALL                 | ALL        | Bug Fixing                   | Fix all bugs found                                           | Done |   
-| 08/08/2022  | -                 | -        | Documentation                | Document all features and views                                          | On Going |
-| 08/09/2022  | -                 | -        | Features List Updation            |   Document all features                                    | On Going |
-| 08/10/2022  | -                 | -        | License Export Format Discussion            |   Finalize the format   for exporting licenses                                 | On Going |
-| 08/11/2022  | -                 | -        | License Export Format Discussion            |   Finalize the format   for exporting licenses                                 | On Going |
-| 08/12/2022  | Middle Tier/ Python   | Publisher        | Views for header form            |   Design views for header form                                 | On Going |
-| 08/12/2022  | UI   | Publisher        | UI Design for Header           |   Design UI for header form                                 | Done |
-| 08/13/2022 |ALL | ALL         | Unit Testing  | Test all views and models done so far | Done |
-| 08/14/2022  | ALL                 | ALL        | Bug Fixing                   | Fix all bugs found                                           | Done |   
-| 08/15/2022  | Backend   | Publisher        | Model Creation           |   Create model for Publisher to enter header details                                 | Done |
-| 08/16/2022  | Middle Tier/ Python   | Publisher        | Model Form Creation           |   Create model form for Publisher to enter header details                                 | Done |
-| 08/16/2022  | Middle Tier/ Python   | Publisher        | Views updation for form           |   modify form to display entered details                                 | Done |
-| 08/17/2022  | UI   | Publisher        | UI for displaying form           |   Integrate model form into UI                                 | Done |
-| 08/17/2022  | Middle Tier/ Python   | Publisher        | Form validation           |   Validations and checks for Form                                 | Done |
+| Date      | Application Segment | Flow                | Task Name                                    | Description                                                                             | Status   |
+|-----------|---------------------|---------------------|----------------------------------------------|-----------------------------------------------------------------------------------------|----------|
+| 6/13/2022 | MIddle Tier/ Python | \-                  | Creating the end to end Django Flow          | Designing the approver and uploader flow in Django                                      | Done     |
+| 6/13/2022 | UI                  | \-                  | Perpwork                                     | HTML, CSS ( and Bootstrap) Layout and JavaScript calls defined                          | Done     |
+| 6/13/2022 | UI                  | Uploader            | Design - Uploader Flow                       | Designing the application based on the emails from Alexios                              | Done     |
+| 6/13/2022 | UI                  | Admin               | Design - Admin Flow                          | Designing the application based on the emails from  Alexios                             | On Going |
+| 6/13/2022 | MIddle Tier/ Python | \-                  | Understand the License File                  | Understand the License File sent across by SPDX                                         | On Going |
+| 6/13/2022 | MIddle Tier/ Python | \-                  | Understand the License File                  | Review and Analyse the Tree Data Structure of the Canonical Format                      | On Going |
+| 6/14/2022 | Backend             | \-                  | Understanding the deployment process         | List out the various hosting methods                                                    | Done     |
+| 6/14/2022 | Backend             | \-                  | AWS Services                                 | List out the AWS services to be used for optimal experience                             | Done     |
+| 6/14/2022 | Backend             | \-                  | Find the Best SQL Databse for application    | Finalized between SQLite and Prostgres                                                  | Done     |
+| 6/14/2022 | MIddle Tier/ Python | All                 | User - login, register and role creation     | Define the model for the user object, create django forms for the same with validations | Done     |
+| 6/14/2022 | MIddle Tier/ Python | All                 | User - login, register and role creation     | Define validation rules for the form and display error messages                         | Done     |
+| 6/15/2022 | UI                  | All                 | User - login, register and role creation     | Design the UI for user sign-in, registering and forgot password screens                 | Done     |
+| 6/15/2022 | Middle Tier/ Python | All                 | User Session                                 | Provide Authentication and define the session                                           | Done     |
+| 6/16/2022 | Backend             | All                 | License tables as per version 2              | Define the models for license table                                                     | Done     |
+| 6/16/2022 | Middle Tier/ Python | All                 | model based form for license upload          | design the django form based on the license model                                       | Done     |
+| 6/16/2022 | Middle Tier/ Python | Approver/ Uploader  | user redirect                                | redirect dashborad based on user role                                                   | Done     |
+| 6/16/2022 | UI                  | Uploader            | license upload feature in uploader dashboard | license upload feature in uploader dashboard                                            | Done     |
+| 6/16/2022 | Middle Tier/ Python | Uploader            | user session management                      | define user session rules and timeout period                                            | Done     |
+| 6/17/2022 | Middle Tier/ Python | Uploader            | Trigger creation                             | Trigger to fill model on POST request and save the  model object                        | Done     |
+| 6/17/2022 | Middle Tier/ Python | Uploader            | license view                                 | feature to view all uploaded licenses                                                   | Done     |
+| 6/17/2022 | Backend             | \-                  | DB tables structure re-definition            | redefine tables based on Mentor Reviews                                                 | Done     |
+| 6/18/2022 | UI                  | Uploader            | License Detail View                          | Design UI to view individual license Details                                            | Done     |
+| 6/18/2022 | Middle Tier/ Python | Uploader            | License Detail View                          | Define the view to view license Details and provide dynamic urls for each license       | Done     |
+| 6/18/2022 | ALL                 | Uploader            | Unit Test                                    | Test all views and models done so far                                                   | Done     |
+| 6/18/2022 | ALL                 | Uploader            | Bug Fixing                                   | Fix all bugs found                                                                      | Done     |
+| 6/19/2022 | Middle Tier/ Python | Uploader            | License Edit Option                          | Created view to edit License form                                                       | Done     |
+| 6/19/2022 | UI                  | Uploader            | License Edit Option                          | UI to edit license form                                                                 | Done     |
+| 6/19/2022 | Backend             | Uploader            | License Edit Option                          | Updating the model for the license data                                                 | Done     |
+| 6/20/2022 | UI                  | Approver/ Uploader  | Table Sorting                                | Ajax calls to have a responsive table                                                   | Done     |
+| 6/20/2022 | UI                  | Approver            | View uploaded licenses                       | UI for approver to view uploaded licenses                                               | Done     |
+| 6/20/2022 | Middle Tier/ Python | Approver            | View uploaded licenses                       | View and functions for approving/rejecting licenses                                     | Done     |
+| 6/20/2022 | Backend             | Approver            | View uploaded licenses                       | Model rendering and DataBase updation                                                   | Done     |
+| 6/20/2022 | UI                  | Approver            | Search for Licenses                          | UI for approver to view all licenses                                                    | Done     |
+| 6/20/2022 | Middle Tier/ Python | Approver            | Search for Licenses                          | View and functions for searching all licenses                                           | Done     |
+| 6/21/2022 | UI                  | Approver            | Approve/ Reject Liceses                      | UI for approver to approve/ reject licenes                                              | Done     |
+| 6/21/2022 | Middle Tier/ Python | Approver            | Approve/ Reject Liceses                      | View and functions to approve/ reject licenes                                           | Done     |
+| 6/21/2022 | Backend             | Approver            | Approve/ Reject Liceses                      | model and database updation                                                             | Done     |
+| 6/21/2022 | Middle Tier/ Python | Uploader            | View Rejected Licenses                       | Updation view to include rejected licenses                                              | Done     |
+| 6/22/2022 | UI                  | Uploader            | Quick access to view License Details         | Update Uploader Dashboard to access Licenses quickly                                    | Done     |
+| 6/22/2022 | UI                  | Approver            | Quick access to view License Details         | Update Approver Dashboard to access Licenses quickly                                    | Done     |
+| 6/22/2022 | Middle Tier/ Python | Approver/ Uploader  | Session handling and last login feature      | Option to view changes since last login                                                 | Done     |
+| 6/22/2022 | UI                  | Approver/ Uploader  | Session handling and last login feature      | UI to view changes since last login                                                     | Done     |
+| 6/23/2022 | UI                  | Approver            | Design screen                                | Design UI to track the status change of the license                                     | Done     |
+| 6/23/2022 | Middle Tier/Python  | Approver            | View to check the license tracking           | Define a class based view to cheack the change in status of the license                 | Done     |
+| 6/23/2022 | UI                  | Approver/Uploader   | Redesign screen to view the latest comments  | UI to view the latest comment from the user who last modified the license status        | Done     |
+| 6/23/2022 | Backend             | Admin               | Change table views                           | Change the view of the tables and add option to filter the contents                     | Done     |
+| 6/24/2022 | \-                  | ALL                 | Deploy the application                       | Deploy the application on AWS and install SQLite on EC2 Instance                        | Done     |
+| 6/24/2022 | \-                  | ALL                 | Demo the application                         | Give a demo of the application to Alexios and note down the comments                    | Done     |
+| 6/25/2022 | ALL                 | Approver            | Unit Test                                    | Test all views and models done so far                                                   | Done     |
+| 6/25/2022 | ALL                 | Uploader            | Unit Test                                    | Test all views and models done so far                                                   | Done     |
+| 6/26/2022 | ALL                 | Approver            | Bug Fixing                                   | Fix all bugs found (Tracking error)                                                     | Done     |
+| 6/26/2022 | ALL                 | Uploader            | Bug Fixing                                   | Fix all bugs found                                                                      | Done     |
+| 6/27/2022 | UI                  | \-                  | Home Screen                                  | Design Home screen displaying all approved Licenses                                     | Done     |
+| 6/27/2022 | Middle Tier/ Python | \-                  | Home Screen                                  | Define the view to display all approved Licenses                                        | Done     |
+| 6/27/2022 | Backend             | \-                  | Model Redifinition                           | Redefine model validations and make migrations                                          | Done     |
+| 6/28/2022 | UI                  | Uploader            | Form Errors                                  | Change UI to display form errors if any                                                 | Done     |
+| 6/28/2022 | Middle Tier/ Python | Uplaoder            | Form Errors                                  | Change context to include form errors and display them                                  | Done     |
+| 6/28/2022 | Backend             | \-                  | Model Fields Redefinition                    | Redefine model as per Alexios' comments                                                 | Done     |
+| 6/28/2022 | Middle Tier/ Python | \-                  | Incorporate model redefinition               | Change views and forms to work with the change in model field                           | Done     |
+| 6/28/2022 | UI                  | \-                  | Incorporate model redefinition               | Change UI and error messages to work with the change in model field                     | Done     |
+| 6/28/2022 | UI                  | Approver/Uploader   | Change Menu Options                          | Delete Redundant menu options and rename the others                                     | Done     |
+| 6/29/2022 | Middle Tier/ Python | Approver/Uploader   | File Upload Option                           | Update upload and edit views to include file upload and give necessary error messages   | Done     |
+| 6/29/2022 | UI                  | Approver/Uploader   | File Upload Option                           | Change UI to include file upload options. Validate the file type using JS               | Done     |
+| 6/29/2022 | Model               | \-                  | Change constraintsfor the license Data table | Redefine model constraints as per the reiew comments on Github                          | Done     |
+| 6/30/2022 | Middle Tier/ Python | Uploader            | Basic dedplication implementation            | Check if uploaded fle or text is already present                                        | Done     |
+| 6/29/2022 | Middle Tier/ Python | Uploader            | File upload errors                           | Fix errors when both text s entered and file is uploaded                                | Done     |
+| 6/29/2022 | UI                  | Uploader            | Styling changes                              | Change Styling to make application more User Friendly                                   | Done     |
+| 6/30/2022 | Middle Tier/ Python | All                 | Make the application menu flat               | Create a single view and template for all users                                         | Done     |
+| 6/30/2022 | UI                  | All                 | Make the application menu flat               | Dynamically populate screens based on user role                                         | Done     |
+| 6/31/2022 | ALL                 | Approver            | Unit Test                                    | Test all views and models done so far                                                   | Done     |
+| 6/31/2022 | ALL                 | Uploader            | Unit Test                                    | Test all views and models done so far                                                   | Done     |
+| 7/1/2022  | ALL                 | Approver            | Bug Fixing                                   | Fix all bugs found (Tracking error)                                                     | Done     |
+| 7/1/2022  | ALL                 | Uploader            | Bug Fixing                                   | Fix all bugs found                                                                      | Done     |
+| 7/2/2022  | UI                  | Admin               | Desgin the admin screen                      | Design the UI for Admin                                                                 | Done     |
+| 7/2/2022  | Middle Tier/ Python | Admin               | Design Views for Admin                       | Define views for admin login                                                            | Done     |
+| 7/2/2022  | Middle Tier/ Python | Admin               | License Delete                               | Define views for admin to delete licenses                                               | Done     |
+| 7/2/2022  | Middle Tier/ Python | Admin               | Namespace                                    | Define views for admin to set namespace                                                 | Done     |
+| 7/3/2022  | Backend             | Admin               | Namespace                                    | Change Database tables structure                                                        | Done     |
+| 7/3/2022  | Middle Tier/ Python | Admin               | Role Setting and Updating                    | Define views for Admin to set and delete roles for all users                            | Done     |
+| 7/3/2022  | Middle Tier/ Python | ALL                 | User validaions                              | Redefine user validations to include 'Admin'                                            | Done     |
+| 7/3/2022  | Middle Tier/ Python | Uploader/ Admin     | File Upload error correction                 | Changes to Upload view                                                                  | Done     |
+| 7/3/2022  | Middle Tier/ Python | ALL                 | Export                                       | Testing Export Option                                                                   | Done     |
+| 7/4/2022  | Backend             | Admin               | Users                                        | View users data                                                                         | Done     |
+| 7/4/2022  | Middle Tier/ Python | Uploader            | Update and Edit changes                      | Change logic for Update and edit                                                        | Done     |
+| 7/4/2022  | Middle Tier/ Python | ALL                 | User profile                                 | View to change suers details                                                            | Done     |
+| 7/5/2022  | Middle Tier/ Python | Uploader/ Approver  | license Export option                        | Views to export license details                                                         | Done     |
+| 7/5/2022  | Middle Tier/ Python | Superuser           | Export / Import option                       | Option for superuser to export and import many licenses at once                         | Done     |
+| 7/6/2022  | ALL                 | -                   | Test                                         | Test all views done so far before deploying the second version of the app               | Done     |
+| 7/7/2022  | ALL                 | -                   | Bug Fixing                                   | Fix all the bugs found before deploying the second version of the app                   | Done     |
+| 7/7/2022  | Middle Tier/ Python | ALL                 | Increase export format options               | Increse the number of formats for exporting license Data                                | On Going |
+| 7/8/2022  | Middle Tier/ Python | ALL                 | Increase export format options               | Increse the number of formats for exporting license Data                                | Done     |
+| 7/9/2022  | ALL                 | ALL                 | Unit Testing                                 | Test all views and models done so far                                                   | Done     |
+| 7/10/2022 | ALL                 | ALL                 | Bug Fixing                                   | Fix all bugs found                                                                      | Done     |
+| 7/11/2022 | -                   | -                   | Documentation                                | Document all features and views                                                         | On Going |
+| 7/12/2022 | -                   | -                   | Documentation                                | Document all features and views                                                         | On Going |
+| 7/13/2022 | -                   | -                   | Documentation                                | Document all features and views                                                         | On Going |
+| 7/13/2022 | -                   | -                   | Features List                                | List out all features developed and to be done during in the product                    | On Going |
+| 7/14/2022 | -                   | -                   | Documentation                                | Document all features and views                                                         | On Going |
+| 7/14/2022 | -                   | -                   | Features List                                | List out all features developed and to be done during in the product                    | Done     |
+| 7/15/2022 | -                   | -                   | Documentation                                | Document all features and views                                                         | On Going |
+| 7/16/2022 | ALL                 | ALL                 | Unit Testing                                 | Test all views and models done so far                                                   | Done     |
+| 7/17/2022 | ALL                 | ALL                 | Bug Fixing                                   | Fix all bugs found                                                                      | Done     |
+| 7/18/2022 | Middle Tier/Python  | Uploader            | Upload/Edit view                             | Change the view for upload/edit to remove de-duplication  errors                        | Done     |
+| 7/18/2022 | Backend             | Publisher           | Create new role                              | Create a new role called Publisher                                                      | Done     |
+| 7/19/2022 | UI                  | Publisher           | Design UI                                    | Design the UI for the publisher                                                         | Done     |
+| 7/20/2022 | Middle Tier/Python  | Admin               | User Activity                                | Include the option to view the licenes acted upon by the user                           | Done     |
+| 7/20/2022 | UI                  | Publisher           | Dashboard                                    | Design the dashboard for the publisher                                                  | Done     |
+| 7/21/2022 | Middle Tier/Python  | Publisher           | views and functions                          | Create the views and functions for the                                                  | Done     |
+| 7/21/2022 | Middle Tier/Python  | Publisher           | Export                                       | view to export and zip                                                                  | On Going |
+| 7/22/2022 | Middle Tier/Python  | ALL                 | Dates                                        | Add dates for all the tables and comments                                               | Done     |
+| 7/23/2022 | Middle Tier/Python  | ALL                 | Licenses List                                | URL Valudations for the license List                                                    | Done     |
+| 7/23/2022 | Middle Tier/Python  | ALL                 | Licenses List                                | Include template filters                                                                | Done     |
+| 7/24/2022 | ALL                 | ALL                 | Unit Testing                                 | Test all views and models done so far                                                   | Done     |
+| 7/25/2022 | ALL                 | ALL                 | Bug Fixing                                   | Fix all bugs found                                                                      | Done     |
+| 7/26/2022 | -                   | -                   | Documentation                                | Document all features and views                                                         | On Going |
+| 7/27/2022 | -                   | -                   | Documentation                                | Document all features and views                                                         | On Going |
+| 7/28/2022 | -                   | -                   | Documentation                                | Document all features and views                                                         | On Going |
+| 7/29/2022 | -                   | -                   | Documentation                                | Document all features and views                                                         | On Going |
+| 7/30/2022 | ALL                 | ALL                 | Unit Testing                                 | Test all views and models done so far                                                   | Done     |
+| 7/31/2022 | ALL                 | ALL                 | Bug Fixing                                   | Fix all bugs found                                                                      | Done     |
+| 8/1/2022  | -                   | -                   | Documentation                                | Document all features and views                                                         | On Going |
+| 8/1/2022  | Middle Tier/Python  | Uploader            | Upload UI change                             | Change UI for License Upload and Edit                                                   | Done     |
+| 8/2/2022  | Middle Tier/Python  | ALL                 | Chart.js                                     | Explore Chart.js and its features                                                       | Done     |
+| 8/2/2022  | Middle Tier/Python  | ALL                 | APIs                                         | Explore API creation and dynamic modification                                           | Done     |
+| 8/3/2022  | Middle Tier/Python  | ALL                 | Dashoard                                     | Include charts and statistics                                                           | Done     |
+| 8/4/2022  | UI                  | ALL                 | Dashoard                                     | Dashboard re-design                                                                     | Done     |
+| 8/4/2022  | -                   | -                   | Documentation                                | Document all features and views                                                         | On Going |
+| 8/5/2022  | -                   | -                   | Documentation                                | Document all features and views                                                         | On Going |
+| 8/6/2022  | ALL                 | ALL                 | Unit Testing                                 | Test all views and models done so far                                                   | Done     |
+| 8/7/2022  | ALL                 | ALL                 | Bug Fixing                                   | Fix all bugs found                                                                      | Done     |
+| 8/8/2022  | -                   | -                   | Documentation                                | Document all features and views                                                         | On Going |
+| 8/9/2022  | -                   | -                   | Features List Updation                       | Document all features                                                                   | On Going |
+| 8/10/2022 | -                   | -                   | License Export Format Discussion             | Finalize the format   for exporting licenses                                            | On Going |
+| 8/11/2022 | -                   | -                   | License Export Format Discussion             | Finalize the format   for exporting licenses                                            | On Going |
+| 8/12/2022 | Publisher           | Middle Tier/ Python | Views for header form                        | Design views for header form                                                            | On Going |
+| 8/12/2022 | Publisher           | UI                  | UI Design for Header                         | Design UI for header form                                                               | Done     |
+| 8/13/2022 | ALL                 | ALL                 | Unit Testing                                 | Test all views and models done so far                                                   | Done     |
+| 8/14/2022 | ALL                 | ALL                 | Bug Fixing                                   | Fix all bugs found                                                                      | Done     |
+| 8/15/2022 | Publisher           | Backend             | Model Creation                               | Create model for Publisher to enter header details                                      | Done     |
+| 8/16/2022 | Publisher           | Middle Tier/ Python | Model Form Creation                          | Create model form for Publisher to enter header details                                 | Done     |
+| 8/16/2022 | Publisher           | Middle Tier/ Python | Views updation for form                      | modify form to display entered details                                                  | Done     |
+| 8/17/2022 | Publisher           | UI                  | UI for displaying form                       | Integrate model form into UI                                                            | Done     |
+| 8/17/2022 | Publisher           | Middle Tier/ Python | Form validation                              | Validations and checks for Form                                                         | Done     |
+| 8/18/2022 | Publisher           | Middle Tier/ Python | View to enter data into model                | Save entry to db table after entering user and created data                             | Done     |
+| 8/19/2022 | Publisher           | Backend             | Model Updation                               | Update Model format                                                                     | Done     |
+| 8/19/2022 | Publisher           | Middle Tier/ Python | Form validation Updation                     | Update validations and save information                                                 | Done     |
+| 8/19/2022 | Publisher           | UI                  | UI Updation                                  | Update UI                                                                               | Done     |
+| 8/20/2022 | ALL                 | ALL                 | Unit Testing                                 | Test all views and models done so far                                                   | Done     |
+| 8/21/2022 | ALL                 | ALL                 | Bug Fixing                                   | Fix all bugs found                                                                      | Done     |
+| 8/21/2022 | -                   | -                   | Documentation                                | Document all features and views                                                         | On Going |
+| 8/22/2022 | Publisher           | Middle Tier/ Python | Export and Zip                               | Write the JSON file and create an in-memory zip file                                    | On Going |
+| 8/22/2022 | ALL                 | Middle Tier/ Python | Dashboard Statistics                         | Customize dashboard according to the role                                               | Done     |
+| 8/22/2022 | ALL                 | UI                  | Dashboard Statistics                         | Customize dashboard according to the role                                               | Done     |
+| 8/23/2022 | Publisher           | Middle Tier/ Python | Export and Zip                               | Write the JSON file and create an in-memory zip file                                    | Done     |
+| 8/23/2022 | Publisher           | Middle Tier/ Python | View for header review                       | views for header review and option to either continue or save the data                  | Done     |

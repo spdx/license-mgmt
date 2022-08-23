@@ -98,7 +98,7 @@ def LicenseEdit(request, slug):
                         return render(request, "user/upload.html", context)
                     else:
                         saveLicense(form, "draft", textField)
-                        licenseTrackingFunction(name, request.user, 'new', "New License")
+                        licenseTrackingFunction(name, request.user, 'modified', "New License")
                         messages.success(request, "License sent to approver successfully!")
                         return redirect("user:dashboard")
                         
@@ -131,8 +131,7 @@ def dashboard(request):
             contextObjects = contextObjects.filter(operationType = operationType.objects.get(operation = "New") and operationType.objects.get(operation = "Modified"))
         if "Approver" not in request.session["role"]:
             contextObjects = contextObjects.exclude(operationType = operationType.objects.get(operation = "Modified")).exclude(operationType = operationType.objects.get(operation = "New"))
-        LicenseStatus = ["All", "Accepted", "Rejected", "Draft"]
-        LicenseStatusCount = [uploadedLicenses, approvedLicenses, rejectedLicenses, pendingLicenses]
+        LicenseStatus, LicenseStatusCount = getChartsDetails(request)
         context["var"] = LicenseStatus
         context["val"] = LicenseStatusCount
     else:
@@ -147,6 +146,7 @@ def dashboard(request):
         context["PublisherCount"] = PublisherCount
         context["totalUsers"] = totalUsers 
 
+        
         Roles = ["No Role", "Admin", "Approver/Uploader", "Uploader/Publisher", "Approver/Publisher", "Uploaders", "Approver", "Publisher"]
         RoleCount = [NoRoleCount, AdminCount, ApproverUploaderCount, UploaderPublisherCount, ApproverPublisherCount, UploaderCount, ApproverCount,  PublisherCount]
         context["var"] = Roles
@@ -200,10 +200,11 @@ class searchLicensesView(LoginRequiredMixin, ListView):
             return redirect("user:viewLicenses", slug="Approved")
         isExport = self.request.POST.get("action") == "Export"
         isExportAndZip = self.request.POST.get("action") == "ExportAndZip"
+        request.session["list"] = licenseList
         if isExport and not isExportAndZip:
-            return export(licenseList)
+            return export(request)
         else:
-            return export(licenseList)
+            return exportAndZip(request)
 
 
 class licenseTrackingView(LoginRequiredMixin, ListView):

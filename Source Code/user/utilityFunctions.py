@@ -1,14 +1,19 @@
+from contextlib import nullcontext
 from pprint import isreadable
 from .models import Status, licenseData, licenseTracking, operationType, namespace
 from datetime import datetime as dt
 from .forms import licenseForm, ExportHeaderForm
-from django.http import HttpResponse
-from django.shortcuts import render
+from wsgiref.util import FileWrapper
+from django.http import HttpResponse, JsonResponse
+from django.contrib import messages
+from django.shortcuts import render, get_object_or_404, redirect
+from django.conf import settings
 import datetime
-import zipfile, os, io, requests
+import zipfile, os, requests, json, tempfile
 import re
+from io import BytesIO
 #model import
-from user.models import licenseData
+from user.models import licenseData, exportHeaderFields, Status, licenseTracking, operationType
 from user.resources import licenseDataResource
 
 def saveLicense(form, status, text):
@@ -123,6 +128,47 @@ def UserCount(User):
     return (NoRoleCount, AdminCount, ApproverUploaderCount, UploaderPublisherCount, ApproverPublisherCount, UploaderCount, ApproverCount, PublisherCount, totalUsers)
 
 
+def getChartsDetails(request):
+    user = request.user
+    role = request.session["role"]
+
+    LicenseStatus = []
+    LicenseStatusCount = []    
+    if "Uploader" in role:
+        NewLicensesCount = licenseTracking.objects.filter(operationType = operationType.objects.get(operation = "New"))
+        NewLicensesCount = NewLicensesCount.filter(user = user)
+        ModifiedLicensesCount = licenseTracking.objects.filter(operationType = operationType.objects.get(operation = "Modified"))
+        ModifiedLicensesCount = ModifiedLicensesCount.filter(user = user)
+        allLicensesCount = NewLicensesCount.count() + ModifiedLicensesCount.count()  
+        LicenseStatus.append("All")
+        LicenseStatus.append("New Licenses")
+        LicenseStatus.append("Modified Licenses")
+        LicenseStatusCount.append(allLicensesCount)
+        LicenseStatusCount.append(NewLicensesCount.count())
+        LicenseStatusCount.append(ModifiedLicensesCount.count())
+    if "Approver" in role:
+        approvedLicensesCount = licenseTracking.objects.filter(operationType = operationType.objects.get(operation = "Approved"))
+        approvedLicensesCount = approvedLicensesCount.filter(user = user)
+        rejectedLicensesCount = licenseTracking.objects.filter(operationType = operationType.objects.get(operation = "Rejected"))
+        rejectedLicensesCount = rejectedLicensesCount.filter(user = user)
+        allLicensesCount = approvedLicensesCount.count() + rejectedLicensesCount.count()  
+        if "All" in LicenseStatus:
+            LicenseStatusCount[0] += allLicensesCount
+        else:
+            LicenseStatus.append("All")
+            LicenseStatusCount.append(allLicensesCount)
+        LicenseStatus.append("Approved Licenses")
+        LicenseStatus.append("Rejected Licenses")
+        LicenseStatusCount.append(approvedLicensesCount.count())
+        LicenseStatusCount.append(rejectedLicensesCount.count())
+    if len(LicenseStatusCount)==0 and "Publisher" in role:
+        approvedLicensesCount = licenseData.objects.filter(status = Status.objects.get(status = "Approved"))
+        allLicensesCount = licenseData.objects.all()
+        LicenseStatus = ["All", "Accepted"]
+        LicenseStatusCount = [allLicensesCount.count(), approvedLicensesCount.count()]
+    return(LicenseStatus, LicenseStatusCount)
+
+
 def saveHeaderInfo(form, user):
     filledForm = form.save(commit=False)
     try: 
@@ -132,7 +178,7 @@ def saveHeaderInfo(form, user):
     filledForm.creationInfoCreated = dt.now()
     filledForm.save()
 
-def buildExportFile(list):
+def buildExportFile(list, newHeaderInfo):
     hasExtractedLicensingInfos = []
     for licenseId in list:
         license = licenseData.objects.get(id = licenseId)
@@ -143,17 +189,65 @@ def buildExportFile(list):
         if len(seeAlsos) != 0:
             hasExtractedLicensingInfos.append({"licenseId": identifier, "extractedText": text, "comment": comment, "seeAlsos": seeAlsos})
         else:
-            hasExtractedLicensingInfos.append({"licenseId": identifier, "extractedText": text, "comment": comment})
-    
-    return(hasExtractedLicensingInfos)
+            hasExtractedLicensingInfos.append({"licenseId": identifier, "extractedText": text, "comment": comment})    
+    licenseDict = {}
+    licenseDict["spdxVersion"] = newHeaderInfo.spdxVersion 
+    licenseDict["dataLicense"] = newHeaderInfo.dataLicense
+    licenseDict["spdxId"] = newHeaderInfo.spdxId 
+    licenseDict["name"] = newHeaderInfo.name
+    licenseDict["documentNamespace"] = newHeaderInfo.documentNamespace
+    licenseDict["creationInfo"] = dict()
+    licenseDict["creationInfo"]["comment"] = newHeaderInfo.creationInfoComment
+    licenseDict["creationInfo"]["created"] = str(newHeaderInfo.creationInfoCreated)
+    creatorInfo = []
+    creatorInfo.append("Tool:{}".format(newHeaderInfo.creationInfoCreatorsTools))
+    creatorInfo.append("Organization:{}".format(newHeaderInfo.creationInfoCreatorsOrganization))
+    creatorInfo.append("Person:{}".format(newHeaderInfo.creationInfoCreatorsPerson))
+    licenseDict["creationInfo"]["creators"] = creatorInfo    
+    licenseDict["comment"] = newHeaderInfo.comment
+    licenseDict["hasExtractedLicensingInfos"] = hasExtractedLicensingInfos
+    jsonLicenseExport = json.dumps(licenseDict, indent = 4) 
+    return jsonLicenseExport
 
-def export(list):
-    # licenseResource = licenseDataResource()
-    # dataset = licenseResource.export()
-    # response = HttpResponse(dataset.json, content_type = "application/json")
-    # response['Content-Disposition'] = 'attachment; filename=License List' + str(datetime.datetime.now()) + \
-    #     '.json'
-    # return response
-    hasExtractedLicensingInfos = buildExportFile(list)
-    
 
+def export(request, newHeaderInfo = None):
+    if newHeaderInfo == None:       
+        request.session["Option"] = "export"
+        return redirect("user:headerReview")
+
+    list = request.session["list"]
+    if(list == None):
+        messages.warning(request, "Do not refresh the Header screen")
+        return redirect("user:viewLicenses", slug="Approved")
+    jsonLicenseExport = buildExportFile(list, newHeaderInfo)  
+    response = HttpResponse(jsonLicenseExport, content_type = "application/json")
+    response['Content-Disposition'] = 'attachment; filename=License List' + str(datetime.datetime.now()) + \
+        '.json'
+    request.session["list"] = None
+    return response
+
+def exportAndZip(request, newHeaderInfo = None):
+    if newHeaderInfo == None:       
+        request.session["Option"] = "zip"
+        return redirect("user:headerReview")
+
+    #newHeaderInfo = headerData #This has to be deleted
+    list = request.session["list"]
+    if(list == None):
+        messages.warning(request, "Do not refresh the Header screen")
+        return redirect("user:viewLicenses", slug="Approved")
+    jsonLicenseExport = buildExportFile(list, newHeaderInfo)  
+    in_memory = BytesIO()
+    zf = zipfile.ZipFile(in_memory, mode="w")    
+    #If you have data in text format that you want to save into the zip as a file
+    zf.writestr('License List' + str(datetime.datetime.now()) + '.json', jsonLicenseExport)    
+    #Close the zip file
+    zf.close()
+    #Go to beginning
+    in_memory.seek(0)    
+    #read the data
+    data = in_memory.read()
+    response = HttpResponse(data, content_type='application/zip')
+    response['Content-Disposition'] = 'attachment; filename=Zip List' + str(datetime.datetime.now()) + '.zip'
+    request.session["list"] = None
+    return response  

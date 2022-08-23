@@ -127,6 +127,10 @@ STATICFILES_DIRS = [
     BASE_DIR / "static"
 ]
 
+#Media files - json, images, etc
+MEDIA_ROOT = BASE_DIR / 'files'
+MEDIA_URL = '/files/'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
