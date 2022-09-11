@@ -1,0 +1,7 @@
+1) Role: Superuser
+   Username: superuser
+   Password: password
+
+2) Role: Admin
+   Username: admin
+   Password: iamadmin
