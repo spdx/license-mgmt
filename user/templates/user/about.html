@@ -1,0 +1,45 @@
+{% extends "user/base.html" %}
+{% load static %}
+
+{% block contents %}
+<!-- Content -->
+<div class="content-wrapper">
+
+  <div class="container-xxl flex-grow-1 container-p-y">
+    <div class="row">
+      <!-- Form Layout -->
+      <div class="col-xxl">
+        <div class="card mb-4">
+          <div class="card-header d-flex align-items-center justify-content-between">
+          </div>
+          <div class="card-body">
+              <p>
+                This application is a web-based system for managing license texts; like the SPDX License List but oriented towards other private collections of licenses. 
+                It was made during the summer of 2022 as part of Google Summer of Code by Rohan Chandrashekar.
+              </p>            
+              <h4>Project Summary</h4>
+              We developed a Web based Application with a consideration to use open source Technologies. The Application was created on a Three tier architecture with Light front end tier, all business functionality included in the Middle tier and Database as the Data Tier. 
+              <ol>
+              <li><strong>Front end Tier:</strong> Front end was developed using the HTML, CSS, JavaScript, jQuery, Boot strap, Chart.js. The images are taken from  <a href="https://www.freepik.com/">Adobe stock.<a></li>
+              <li><strong>Middle Tier:</strong> the Business logic was developed on Python Django.</li>
+              <li><strong>Back End/ Data Layer:</strong> SQLite was the database we choose to persist the data.</li>
+              <br>
+              Modules were created in the application with provisioning the User management, License data management, UI Analytics.  
+             </p>
+             <p>The code base, documentation and detailed description of the modules can be viewed in the <a href="">SPDX GitHub repository</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  (function() {
+      window.location("{% url "user:dashboard" %}");
+  })(); 
+</script>
+
+
+  <!-- Content -->
+{% endblock %}

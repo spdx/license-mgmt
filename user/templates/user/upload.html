@@ -1,0 +1,186 @@
+{% extends "user/base.html" %}
+{% load static %}
+
+{% block contents %}
+<!-- Content -->
+<div class="content-wrapper">
+
+  <div class="container-xxl flex-grow-1 container-p-y">
+    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Enter </span>License Details</h4>
+    <div class="row">
+      <!-- Form Layout -->
+      <div class="col-xxl">
+        <div class="card mb-4">
+          <div class="card-header d-flex align-items-center justify-content-between">
+          </div>
+          <div class="card-body">
+            <h5 class="fw-bold py-3 mb-4"></h5>
+            <form id="formAuthentication" class="mb-3" method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="row mb-3">
+                <label class="col-sm-2 col-form-label">Title</label>
+                <div class="col-sm-10">
+                  {{ form.title}}
+
+                  {% if form.errors %}                  
+                    {% for error in form.title.errors %}
+                      <div class="alert alert-warning" role="alert">{{error}}</div>
+                    {% endfor %}          
+                  {% endif %} 
+
+                </div>
+                
+              </div>
+              <div class="row mb-3">
+                <label class="col-sm-2 col-form-label">Name</label>
+                <div class="col-sm-10">
+                  {{ form.name }}
+
+                  {% if form.errors %}                  
+                    {% for error in form.name.errors %}
+                      <div class="alert alert-warning" role="alert">{{error}}</div>
+                    {% endfor %}          
+                  {% endif %}
+                  
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label class="col-sm-2 col-form-label">Identifier</label>
+                <div class="col-sm-10">
+                  {{ form.identifier }}
+
+                  {% if form.errors %}                  
+                    {% for error in form.identifier.errors %}
+                      <div class="alert alert-warning" role="alert">{{error}}</div>
+                    {% endfor %}          
+                  {% endif %}
+
+                </div>
+              </div>              
+              <div class="row mb-3">
+                <label class="col-sm-2 col-form-label">License Text</label>
+                <div class="col-sm-10">
+                  <div class="row">
+                    <div class="col-md mb-4 mb-md-0">
+                      <small class="text-light fw-semibold">Enter the text or upload a file</small>
+                      {{form.licenseData}}
+                          {% comment %} {% if edit %}
+                            {{form.licenseData}}
+                          {% else %}
+                            <textarea
+                            id="LicenseText"
+                            class="form-control"
+                            placeholder="Enter license text"
+                            name = "licenseText"
+                          ></textarea>
+                          {% endif %}  {% endcomment %}
+                        
+                        <div class="divider">
+                          <hr>
+                        </div>                        
+                        
+                        <div class="mb-3">
+                          <input class="form-control" type="file" id="file" name="licenseFile" onchange="return fileValidation()"/>
+                        </div>                                         
+                      </div>
+                    </div> 
+
+                    <script>
+                      function fileValidation() {
+                          var fileInput =
+                              document.getElementById('file');
+                           
+                          var filePath = fileInput.value;
+                       
+                          // Allowing file type
+                          var allowedExtensions =
+                              /(\.txt)$/i;
+                           
+                          if (!allowedExtensions.exec(filePath)) {
+                              alert('Invalid file type');                              
+                              fileInput.value = '';
+                              return false;
+                              
+                          }
+                      }
+                  </script>
+
+                  {% if textError %}                  
+                     <div class="alert alert-warning" role="alert">Either enter the text or upload a file</div>
+                  {% endif %}
+                  
+                  {% if duplicateText %}                  
+                     <div class="alert alert-warning" role="alert">License Text is identical to License: {{DuplicateLicense}}</div>
+                  {% endif %}
+                  
+                  </div>
+              
+              
+              <div class="col-md mb-4 mb-md-0">
+                {% if edit %}
+                <div class="row mb-3">
+                </br>
+                  <label class="col-sm-2 col-form-label">Comments</label>
+                  <div class="col-sm-10">
+                    <p>
+                    <textarea
+                    id="Comments"
+                    class="form-control"
+                    name="Comments"
+                    placeholder="Enter Comments if any"
+                    aria-label="Any comments?"
+                  ></textarea>
+                    </p>
+                  </div>
+                </div>
+                {% endif %}
+              </div>  
+            </div>
+              {% if form.errors %}                 
+                  {% for error in form.non_field_errors %}
+                  <div class="alert alert-primary" role="alert">{{error}}</div>
+                  {% endfor %}                
+              {% endif %} 
+<<<<<<< Updated upstream:Source Code/user/templates/user/upload.html
+              {% for msg in messages %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">{{msg}}</div> 
+              {% endfor %}
+=======
+              <!-- Messages -->
+              {% for msg in messages %}
+                {%if 'warning' in msg.tags %}
+                    <div class="alert alert-warning alert-dismissible" role="alert">
+                        {{msg}}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {%else%}
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        {{msg}}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {%endif%}
+              {% endfor %}
+              <!-- Messages -->
+>>>>>>> Stashed changes:user/templates/user/upload.html
+            </br>
+              <div class="row justify-content">
+                <div class="col-sm-10">
+                  <button type="submit" class="btn btn-primary">Send</button>
+              </div>              
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  (function() {
+      window.location("{% url "user:dashboard" %}");
+  })(); 
+</script>
+
+
+  <!-- Content -->
+{% endblock %}
