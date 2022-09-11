@@ -34,6 +34,9 @@
                 <th>User</th>
                 <th>Date</th>
                 <th>Comments</th>
+                {% if ChangesTracking %}
+                    <th>Actions</th>
+                {% endif %}
                 </tr>
             </thead>
             <tbody>
@@ -59,6 +62,10 @@
                     <td>
                         {{ changeInTracking.comments }}
                     </td>
+                    {% if ChangesTracking %}
+                        <th><a class="dropdown-item" href="{% url "user:licenseDetails" changeInTracking.license_id %}"
+                            ><i class="bx bx-receipt me-1"></i> View </a></th>
+                    {% endif %}
                 </tr>
                 {% endfor %}
             </tbody>

@@ -127,6 +127,10 @@ STATICFILES_DIRS = [
     BASE_DIR / "static"
 ]
 
+#Media files - json, images, etc
+MEDIA_ROOT = BASE_DIR / 'files'
+MEDIA_URL = '/files/'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
@@ -137,8 +141,4 @@ AUTH_USER_MODEL = 'user_sign_in.User'
 #login settings
 LOGIN_URL = 'user_sign_in:displayApprovedLicenses'
 LOGIN_REDIRECT_URL='user_sign_in:sign_in'
-<<<<<<< Updated upstream:Source Code/SPDX_license_management_system/settings.py
 LOGOUT_REDIRECT_URL = 'user_sign_in:displayApprovedLicenses'
-=======
-LOGOUT_REDIRECT_URL = 'user_sign_in:displayApprovedLicenses'
->>>>>>> Stashed changes:SPDX_license_management_system/settings.py

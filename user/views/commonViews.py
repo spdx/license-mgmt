@@ -21,7 +21,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.'''
 
 
 #package imports
-from django.shortcuts import redirect
+from email.header import Header
+from django.shortcuts import redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.http import HttpResponse
@@ -33,8 +34,10 @@ import datetime
 import zipfile, os, io, requests
 
 #model import
-from user.models import licenseData
+from user.models import *
 from user.resources import licenseDataResource
+from user.forms import *
+from user.utilityFunctions import *
 # Create your views here.
 
 @login_required
@@ -51,6 +54,11 @@ def checkUser(request):
                 role = "Approver"
             else:
                 role = role +"AndApprover"
+        if 'Publisher' in list(request.user.groups.values_list('name', flat = True)):
+            if role == "":
+                role = "Publisher"
+            else:
+                role = role +"AndPublisher"
         if 'Admin' in list(request.user.groups.values_list('name', flat = True)):
             if role == "":
                 role = "Admin"
@@ -62,24 +70,6 @@ def checkUser(request):
     else:
         return render(request, "license_management_system/noRole.html")
 
-<<<<<<< Updated upstream:Source Code/user/views/commonViews.py
-   
-def export(request, slug):
-    licenseResource = licenseDataResource()
-    dataset = licenseResource.export()
-    if slug == "csv":
-        response = HttpResponse(dataset.csv, content_type = "text/csv")
-        response['Content-Disposition'] = 'attachment; filename=License List' + str(datetime.datetime.now()) + \
-            '.csv'
-    elif slug == "json":
-        response = HttpResponse(dataset.json, content_type = "application/json")
-        response['Content-Disposition'] = 'attachment; filename=License List' + str(datetime.datetime.now()) + \
-            '.json'
-    elif slug == "xls":
-        response = HttpResponse(dataset.xls, content_type = "application/vnd.ms=excel")
-        response['Content-Disposition'] = 'attachment; filename=License List' + str(datetime.datetime.now()) + \
-            '.xls'
-=======
 @login_required
 def headerReview(request):
     if "Publisher" in request.session['role']:  
@@ -109,14 +99,5 @@ def headerReview(request):
             form = ExportHeaderForm(instance = headerDetails)           
             context["form"] = form
             return render(request, "user/setHeaderDetails.html", context)
->>>>>>> Stashed changes:user/views/commonViews.py
     else:
-        resource = None
-    return response
-
-def zipAndExport(request, slug):
-    # response = HttpResponse(content_type='application/zip')
-    # zip_file = zipfile.ZipFile(response, 'w')
-    # zip_file.write()
-    # response['Content-Disposition'] = 'attachment; filename={}'.format(str(datetime.datetime.now()))
-    return render(request, "license_management_system/underMaintainance.html")
+        return render(request, "user/wrongUser.html")  

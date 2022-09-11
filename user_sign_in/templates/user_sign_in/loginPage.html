@@ -26,7 +26,10 @@
 
           <!-- Success Messages -->
           {% for msg in messages %}
-                <div class="alert alert-success alert-dismissible fade show" role="alert">{{msg}}</div> 
+          <div class="alert alert-success alert-dismissible" role="alert">
+            {{msg}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
           {% endfor %}
           <!-- Success Messages -->
 
@@ -37,15 +40,6 @@
              {{form.username}}
             </div>
             <div class="mb-3 form-password-toggle">
-<<<<<<< Updated upstream:Source Code/user_sign_in/templates/user_sign_in/loginPage.html
-              <div class="d-flex justify-content-between">
-                <label class="form-label" for="password">Password</label>
-                <a href="{% url "user_sign_in:forgot_password" %}">
-                  <small>Forgot Password?</small>
-                </a>
-              </div>
-=======
->>>>>>> Stashed changes:user_sign_in/templates/user_sign_in/loginPage.html
                 {{form.password}}
             </div>
             <div class="mb-3">

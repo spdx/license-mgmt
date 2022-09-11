@@ -21,7 +21,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.'''
 
 
 from django import forms
-from .models import licenseData, namespace
+from .models import licenseData, exportHeaderFields
 
 class licenseForm(forms.ModelForm):
     class Meta:
@@ -47,8 +47,6 @@ class licenseForm(forms.ModelForm):
                                                                 'class': 'form-control',
                                                                 "rows":5, 
                                                                 "cols":20
-<<<<<<< Updated upstream:Source Code/user/forms.py
-=======
                                                                 }), required=False)
 
 class ExportHeaderForm(forms.ModelForm):
@@ -92,5 +90,4 @@ class ExportHeaderForm(forms.ModelForm):
                                                                 'class': 'form-control',
                                                                 "rows":5, 
                                                                 "cols":20
->>>>>>> Stashed changes:user/forms.py
                                                                 }), required=False)

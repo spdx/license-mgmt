@@ -1,7 +1,7 @@
 {% extends 'user_sign_in/base.html' %}
-{% block List %}
 
-<div class="content-wrapper">
+{% block List %}
+  <div class="content-wrapper">
     <!-- Content -->    
     <div class="container-xxl flex-grow-1 container-p-y">        
         <div class="col-lg">
@@ -37,15 +37,18 @@
                 </dl>
               </div>
             </div>
-          </div>   
+          </div>          
         </div>
-      </div>               
-              
-
+      </div> 
+      <div class="text-center">
+        <a href="{% url "user_sign_in:displayApprovedLicenses" %}" class="d-flex align-items-center justify-content-center">
+          <i class="bx bx-chevron-left scaleX-n1-rtl bx-sm"></i>
+          Back to license List
+        </a>
+      </div>    
     </div>
-
     <!-- Content -->
-</div>    
+  </div>    
 
 {% endblock %}       
 

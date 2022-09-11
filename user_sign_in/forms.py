@@ -24,7 +24,8 @@ from django import forms
 from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UserChangeForm
 from django.contrib.auth.models import User
-from .models import User
+from django.contrib.auth.forms import PasswordResetForm
+from user_sign_in.models import User
 
 class CreateUserForm(UserCreationForm):
     class Meta:
@@ -107,3 +108,10 @@ class modifyUserForm(UserChangeForm):
         super().__init__(*args, **kwargs)
         self.fields['first_name'].label = "First Name"
         self.fields['last_name'].label = "Last Name"
+
+
+class NewPasswordResetForm(PasswordResetForm):
+    fields = ['email']
+    email = forms.CharField(widget=forms.EmailInput(attrs={'placeholder': '',
+                                                                'class': 'form-control mb-4',
+                                                                })) 

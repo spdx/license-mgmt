@@ -16,23 +16,34 @@
           <div class="card-body">
             <form id="formAuthentication" class="mb-3" method="POST" enctype="multipart/form-data">
               {% csrf_token %}              
-              <h5>Select either Admin or one or both of Approver and Uploader</h5>
+              <h5>Select either Admin or one or more of Approver/ Uploader and Publisher</h5>
               <div class="form-check mt-3">
                 {% if isApprover %}
                     <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" name="Approver" checked/>
                 {% else %}
-                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" name="Approver" />
+                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" name="Approver" />                    
                 {% endif %}
                 <label class="form-check-label" for="defaultCheck1"> Approver </label>
               </div>
-              <div class="form-check">
+
+              <div class="form-check mt-3">
                 {% if isUploader %}
                     <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" name="Uploader" checked/>
                 {% else %}
-                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" name="Uploader" />
-                {% endif %}
-                <label class="form-check-label" for="defaultCheck2"> Uploader </label>
+                  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" name="Uploader" />                
+                {% endif %}                
+                <label class="form-check-label" for="defaultCheck1"> Uploader </label>
               </div>
+
+              <div class="form-check mt-3">
+                {% if isPublisher %}
+                  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" name="Publisher" checked/>
+                {% else %}
+                  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" name="Publisher" />               
+                {% endif %} 
+                <label class="form-check-label" for="defaultCheck1"> Publisher </label>
+              </div>
+
               <div class="form-check">
 
                 <div class="divider">

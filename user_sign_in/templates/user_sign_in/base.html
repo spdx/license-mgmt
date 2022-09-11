@@ -149,7 +149,7 @@
 		<div class="navbar-nav ml-auto">			
 			<div class="nav-item dropdown">
         {% if not request.user.is_authenticated  %}
-				  <a href="{% url "user_sign_in:sign_in" %}"> <i class="material-icons">&#xE8AC;</i> Log in <b class="caret"></b></a>
+				  <a href="{% url "user_sign_in:signIn" %}"> <i class='bx bx-log-in-circle'></i> Log in <b class="caret"></b></a>
         {% else %}
           <a href="{% url "user:dashboard" %}"> <i class='bx bx-home-alt-2'>&#xE8AC;</i> Go to Dashboard <b class="caret"></b></a>
         {% endif %}
@@ -163,7 +163,10 @@
   
   <!-- Success Messages -->
   {% for msg in messages %}
-    <div class="alert alert-success alert-dismissible fade show" role="alert">{{msg}}</div> 
+  <div class="alert alert-success alert-dismissible" role="alert">
+    {{msg}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
   {% endfor %}
   <!-- Success Messages -->
 

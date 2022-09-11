@@ -34,9 +34,9 @@ from user_sign_in.models import User
 
 #file imports
 from user.decorators import allowedUsers
-from user.forms import licenseForm
-from user.utilityFunctions import licenseTrackingFunction, saveLicense, validityAndText, duplicateCheck
-from user.models import Status, licenseData, licenseTracking, operationType, namespace
+from user.forms import licenseForm, ExportHeaderForm
+from user.utilityFunctions import *
+from user.models import *
 from user_sign_in.forms import modifyUserForm
 # Create your views here.
 
@@ -121,14 +121,8 @@ def LicenseEdit(request, slug):
                         context["DuplicateLicense"] = isDuplicate[1]
                         return render(request, "user/upload.html", context)
                     else:
-<<<<<<< Updated upstream:Source Code/user/views/UserViews.py
-                        print("Hello", textField)
-                        saveLicense(form, "draft", textField)
-                        licenseTrackingFunction(name, request.user, 'new', "New License")
-=======
                         saveLicense(form, "draft", textField, isDuplicate[1])
                         licenseTrackingFunction(name, request.user, 'modified', "New License")
->>>>>>> Stashed changes:user/views/UserViews.py
                         messages.success(request, "License sent to approver successfully!")
                         return redirect("user:dashboard")
                         
@@ -147,59 +141,41 @@ def dashboard(request):
         "context":"Dashboard",
     }
     context["name"] = request.user
-    try:
-        pendingLicenses = licenseData.objects.filter(status = Status.objects.get(status="Draft")).count()   
-    except:
-        pendingLicenses = 0
-    try:
-        approvedLicenses = licenseData.objects.filter(status = Status.objects.get(status="Approved")).count() 
-    except:
-        approvedLicenses = 0
-    try:
-        rejectedLicenses = licenseData.objects.filter(status = Status.objects.get(status="Rejected")).count() 
-    except:
-        rejectedLicenses = 0
-    try:
-        uploadedLicenses = licenseData.objects.all().count()     
-    except:
-        uploadedLicenses = 0  
+    pendingLicenses, approvedLicenses, rejectedLicenses, uploadedLicenses = dashboardOverallStats()
     contextObjects = licenseTracking.objects.exclude(date__lt = request.user.last_login)
+
+    #Publisher only role
+    context["onlyPublisher"] = False
+    if request.session["role"] == "Publisher":
+        contextObjects=contextObjects.filter(operationType = operationType.objects.get(operation = "Approved"))
+        context["onlyPublisher"]  = True
+
     if "Admin" not in request.session["role"]:
         if "Uploader" not in request.session["role"]:
             contextObjects = contextObjects.filter(operationType = operationType.objects.get(operation = "New") and operationType.objects.get(operation = "Modified"))
         if "Approver" not in request.session["role"]:
             contextObjects = contextObjects.exclude(operationType = operationType.objects.get(operation = "Modified")).exclude(operationType = operationType.objects.get(operation = "New"))
+        LicenseStatus, LicenseStatusCount = getChartsDetails(request)
+        context["var"] = LicenseStatus
+        context["val"] = LicenseStatusCount
     else:
-        try:
-            ApproverCount = User.objects.filter(groups__name__in = ["Approver"]).exclude(groups__name__in = ["Uploader"]).count()
-        except:
-            ApproverCount = 0
-        context["ApproverCount"] = ApproverCount
-        try:
-            UploaderCount  =  User.objects.filter(groups__name__in = ["Uploader"]).exclude(groups__name__in = ["Approver"]).count()
-        except:
-            UploaderCount = 0
-        context["UploaderCount"] = UploaderCount
-        try:
-            ApproverUploaderCount = User.objects.filter(groups__name__in = ["Approver"]).filter(groups__name__in = ["Uploader"]).count()
-        except:
-            ApproverUploaderCount = 0
-        context["ApproverUploaderCount"] = ApproverUploaderCount
-        try:
-            AdminCount = User.objects.filter(groups__name__in = ["Admin"]).count()
-        except:
-            AdminCount = 0
-        context["AdminCount"] = AdminCount 
-        try:
-            NoRoleCount = User.objects.exclude(groups__name__in = ["Approver","Uploader","Admin"]).exclude(is_superuser=True).count()
-        except:
-            NoRoleCount = 0
+        NoRoleCount, AdminCount, ApproverUploaderCount, UploaderPublisherCount, ApproverPublisherCount, UploaderCount, ApproverCount, PublisherCount, totalUsers = UserCount(User)
         context["NoRoleCount"] = NoRoleCount 
-        try:
-            totalUsers = User.objects.exclude(is_superuser=True).count()
-        except:
-            totalUsers = 0
+        context["AdminCount"] = AdminCount
+        context["ApproverUploaderCount"] = ApproverUploaderCount
+        context["UploaderPublisherCount"] = UploaderPublisherCount
+        context["ApproverPublisherCount"] = ApproverPublisherCount
+        context["UploaderCount"] = UploaderCount
+        context["ApproverCount"] = ApproverCount    
+        context["PublisherCount"] = PublisherCount
         context["totalUsers"] = totalUsers 
+
+        
+        Roles = ["No Role", "Admin", "Approver/Uploader", "Uploader/Publisher", "Approver/Publisher", "Uploaders", "Approver", "Publisher"]
+        RoleCount = [NoRoleCount, AdminCount, ApproverUploaderCount, UploaderPublisherCount, ApproverPublisherCount, UploaderCount, ApproverCount,  PublisherCount]
+        context["var"] = Roles
+        context["val"] = RoleCount
+
     changeInLicenses = contextObjects.count() 
     context["pendingLicenses"] = pendingLicenses
     context["approvedLicenses"] = approvedLicenses
@@ -215,23 +191,27 @@ class searchLicensesView(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super().get_context_data(**kwargs)
-        querySet = licenseData.objects.all()
         slug = ""
-        if self.kwargs.get('slug'):
+        if self.kwargs.get('slug'):            
+            querySet = licenseData.objects.all()
             if self.kwargs['slug'] == "all":
-                context['licenses'] = licenseData.objects.all() 
+                querySet = querySet
                 slug = "Complete"
             elif self.kwargs['slug'] == "DraftorRejected":
-                context['licenses'] = licenseData.objects.exclude(status = Status.objects.get(status = "Approved")) 
+                querySet = querySet.exclude(status = Status.objects.get(status = "Approved")) 
                 slug = "Draft and Rejected"
-            else:
+            elif self.kwargs['slug'] in ["Approved", "Rejected", "Draft"]:
                 querySet = querySet.filter(status = Status.objects.get(status = self.kwargs['slug']))
                 slug = self.kwargs['slug']
+            else:
+                slug = "No such"
+                querySet = None
+        else:
+            slug = "No such"
+            querySet = None
         context['licenses'] = querySet  
         context['context'] = '{} License List'.format(slug)     
         return context 
-<<<<<<< Updated upstream:Source Code/user/views/UserViews.py
-=======
 
     def post(self, request, *args, **kwargs):       
         if 'ApproverPOST' not in request.POST: 
@@ -248,7 +228,6 @@ class searchLicensesView(LoginRequiredMixin, ListView):
         else:
             return exportAndZipApprover(request)
 
->>>>>>> Stashed changes:user/views/UserViews.py
 
 class licenseTrackingView(LoginRequiredMixin, ListView):
     template_name = "user/licenseTracking.html"
@@ -261,6 +240,7 @@ class licenseTrackingView(LoginRequiredMixin, ListView):
         context['TrackingDetails'] = licenseTracking.objects.filter(license =licenseObject ).order_by("date")
         context['context'] = 'Life Cycle of the License:'
         context["secondaryContext"] = licenseObject
+        context["ChangesTracking"] = False  
         return context
 
 class trackViews(LoginRequiredMixin, ListView):
@@ -277,40 +257,11 @@ class trackViews(LoginRequiredMixin, ListView):
                 contextObjects = contextObjects.exclude(operationType = operationType.objects.get(operation = "Modified")).exclude(operationType = operationType.objects.get(operation = "New"))
         context['TrackingDetails'] = contextObjects
         context['context'] = 'Licenses with changes: '     
-        context['secondaryContext'] = 'Since last login'  
+        context['secondaryContext'] = 'Since last login'
+        context["ChangesTracking"] = True  
         return context  
 
 @login_required
-<<<<<<< Updated upstream:Source Code/user/views/UserViews.py
-def profile(request):
-    form = modifyUserForm(request.POST or None, instance=request.user)
-    context = {
-        "form" : form,
-        "context": "Edit your profile"
-    }
-
-    if request.method == "POST":
-        if form.is_valid():
-            form.save()
-            messages.success(request, "Profile Updated!")
-            return redirect("user:dashboard")
-
-
-    return render(request, "user/userprofile.html", context)
-
-@login_required
-def settings(request):
-    return render(request, "license_management_system/underMaintainance.html")
-
-@login_required
-def LogoutView(request):
-    if request.method == 'POST':
-        logout(request)
-        messages.success(request, "Logged Out Successfully!")
-        return redirect("user_sign_in:displayApprovedLicenses")
-
-    return render(request, 'user/logout.html')
-=======
 def headerMaintainance(request):
     if "Publisher" in request.session['role']:  
 
@@ -334,7 +285,6 @@ def headerMaintainance(request):
         return render(request, "user/setHeaderDetails.html", context)
     else:
         return render(request, "user/wrongUser.html")
->>>>>>> Stashed changes:user/views/UserViews.py
 
 #approver Specific view
 class SingleLicenseView(LoginRequiredMixin, View):
@@ -380,7 +330,6 @@ class SingleLicenseView(LoginRequiredMixin, View):
         return redirect("user:viewLicenses", slug="all") 
 
 #admin specific views
-
 class userView(LoginRequiredMixin, ListView):
     template_name = "user/userList.html"
     model = User
@@ -388,11 +337,13 @@ class userView(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         condition =  self.kwargs.get('slug')
-        if condition == "Approver" or condition == "Uploader" or condition == "Admin":
+        if condition in ["Approver", "Uploader", "Publisher", "Admin"]:
             if condition == "Approver":
-                context['Users'] = User.objects.filter(groups__name__in = [condition]).exclude(groups__name__in = ["Uploader"])
+                context['Users'] = User.objects.filter(groups__name__in = [condition]).exclude(groups__name__in = ["Uploader", "Publisher"])
             elif condition == "Uploader":
-                context['Users'] = User.objects.filter(groups__name__in = [condition]).exclude(groups__name__in = ["Approver"])
+                context['Users'] = User.objects.filter(groups__name__in = [condition]).exclude(groups__name__in = ["Approver", "Publisher"])
+            elif condition == "Publisher":
+                context['Users'] = User.objects.filter(groups__name__in = [condition]).exclude(groups__name__in = ["Approver", "Uploader"])
             else:
                 context['Users'] = User.objects.filter(groups__name__in = [condition])
             context['context'] = '{} List'.format(condition)
@@ -400,8 +351,20 @@ class userView(LoginRequiredMixin, ListView):
             context['Users'] = User.objects.filter(groups__name__in = ["Approver"]).filter(groups__name__in = ["Uploader"])
             context['context'] = 'List of Users with roles Of'
             context['secondaryContext'] = ' both Approver and Uploader'
+        elif condition == "ApproverAndPublisher":
+            context['Users'] = User.objects.filter(groups__name__in = ["Approver"]).filter(groups__name__in = ["Publisher"])
+            context['context'] = 'List of Users with roles Of'
+            context['secondaryContext'] = ' both Approver and Publishers'
+        elif condition == "UploaderAndPublisher":
+            context['Users'] = User.objects.filter(groups__name__in = ["Uploader"]).filter(groups__name__in = ["Publisher"])
+            context['context'] = 'List of Users with roles Of'
+            context['secondaryContext'] = ' both Publisher and Uploader'
+        elif condition == "ApproverAndUploaderAndPublisher":
+            context['Users'] = User.objects.filter(groups__name__in = ["Approver"]).filter(groups__name__in = ["Uploader"]).filter(groups__name__in = ["Publisher"])
+            context['context'] = 'List of Users with roles Of'
+            context['secondaryContext'] = ' Approver, Uploader and Publisher'
         elif condition == 'NewUsers':
-            context['Users'] = User.objects.exclude(groups__name__in = ["Approver","Uploader","Admin"]).exclude(is_superuser=True)
+            context['Users'] = User.objects.exclude(groups__name__in = ["Approver","Uploader","Admin","Publisher"]).exclude(is_superuser=True)
             context['context'] = 'List of Users with '
             context['secondaryContext'] = ' no roles'
         elif condition == 'All':
@@ -501,6 +464,7 @@ def setGroups(request, slug):
         "isApprover": False,
         "isUploader": False,
         "isAdmin": False,
+        "isPublisher": False,
         "wrongSelection": False,
         "noSelection": False
     }
@@ -509,12 +473,14 @@ def setGroups(request, slug):
             context["isApprover"] = True
         if "Uploader" in list(userObject.groups.values_list('name', flat = True)): 
             context["isUploader"] = True
+        if "Publisher" in list(userObject.groups.values_list('name', flat = True)): 
+            context["isPublisher"] = True
         if "Admin" in list(userObject.groups.values_list('name', flat = True)): 
             context["isAdmin"] = True
 
     if request.method=="POST":
         if request.POST.get("Admin") != None:
-            if request.POST.get("Uploader") == None and request.POST.get("Approver") == None:
+            if request.POST.get("Uploader") == None and (request.POST.get("Approver") == None and request.POST.get("Publisher")):
                 userObject.groups.clear()
                 groupObject = Group.objects.get(name = "Admin")
                 userObject.groups.add(groupObject)
@@ -522,13 +488,16 @@ def setGroups(request, slug):
                 return redirect("user:users")
             else:
                 context["wrongSelection"] = True
-        elif request.POST.get("Uploader") != None or request.POST.get("Approver") != None:            
+        elif request.POST.get("Uploader") != None or (request.POST.get("Approver") != None or request.POST.get("Publisher") != None):            
             userObject.groups.clear()
             if request.POST.get("Approver") != None:
                 groupObject = Group.objects.get(name = "Approver")
                 userObject.groups.add(groupObject)
             if request.POST.get("Uploader") != None:
                 groupObject = Group.objects.get(name = "Uploader")
+                userObject.groups.add(groupObject)
+            if request.POST.get("Publisher") != None:
+                groupObject = Group.objects.get(name = "Publisher")
                 userObject.groups.add(groupObject)
             messages.success(request, "Role added successfully!")
             return redirect("user:dashboard")
@@ -580,5 +549,4 @@ def logoutAndLicenseList(request):
     logout(request)
     messages.success(request, "Logged Out Successfully!")
     return redirect("user_sign_in:displayApprovedLicenses")
-
     

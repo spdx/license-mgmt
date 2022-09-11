@@ -43,8 +43,7 @@ app_name = "user"
 urlpatterns = [
     #common urls
     path("loadingDashboard",commonViews.checkUser, name="checkUser"),
-    path("export/<slug:slug>",commonViews.export, name="export"),
-    path("zipAndexport/<slug:slug>",commonViews.zipAndExport, name="zipAndexport"), 
+    path("headerReview",commonViews.headerReview, name="headerReview"),
 
     #User urls
     path('', RedirectView.as_view(url=reverse_lazy('admin:index')), name="adminLogin"),
@@ -58,6 +57,7 @@ urlpatterns = [
     path("Users/<slug:slug>",UserViews.userView.as_view(), name="users"),
     path("UserActivity,<int:slug>",UserViews.trackUserViews.as_view(), name="userActivity"),
     path("setNamespace",UserViews.setNamespace, name="namespace"),
+    path("headerMaintainance",UserViews.headerMaintainance, name="headerMaintainance"),
     path("setGroups/<int:slug>",UserViews.setGroups, name="setGroups"),
     path("deactivateProfile/<int:slug>",UserViews.deactivateProfile, name="deactivateProfile"),
     path("Profile",UserViews.profile, name="profile"),
@@ -65,5 +65,4 @@ urlpatterns = [
     path("About/",UserViews.aboutView, name="about"),
     path("Logout",UserViews.LogoutView, name="Logout"),
     path("logoutAndLicenseList",UserViews.logoutAndLicenseList, name="logoutAndLicenseList")
-
 ]

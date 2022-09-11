@@ -98,8 +98,8 @@ def register(request):
         form = CreateUserForm(request.POST)
         if form.is_valid():
             form.save()
-            #log the user in
-            return redirect("user_sign_in:sign_in")
+            messages.success(request, "Accounted created!")
+            return redirect("user_sign_in:signIn")
             
     context = {
         'form' : form

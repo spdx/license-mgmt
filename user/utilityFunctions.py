@@ -1,8 +1,3 @@
-<<<<<<< Updated upstream:Source Code/user/utilityFunctions.py
-from .models import Status, licenseData, licenseTracking, operationType, namespace
-from datetime import datetime
-from .forms import licenseForm
-=======
 # Copyright 2022 Rohan Chandrashekar
 # SPDX-License-Identifier:  MIT
 '''Permission is hereby granted, free of charge, to any person obtaining
@@ -45,7 +40,6 @@ import django.utils.timezone
 from user.models import licenseData, exportHeaderFields
 from user.resources import licenseDataResource
 from user.matchingLicenseText.matchingGuidelines import *
->>>>>>> Stashed changes:user/utilityFunctions.py
 
 def saveLicense(form, status, text, simplifiedText):
     filledForm = form.save(commit=False)   
@@ -54,7 +48,6 @@ def saveLicense(form, status, text, simplifiedText):
     filledForm.SimplifiedlicenseData = simplifiedText
     filledForm.namespace = namespace.objects.all()[0]
     filledForm.save()
-
 
 def validityAndText(form, fileUpload):
     isBothSelected = True
@@ -72,17 +65,6 @@ def validityAndText(form, fileUpload):
             return [False, fileUpload]
 
 
-<<<<<<< Updated upstream:Source Code/user/utilityFunctions.py
-def duplicateCheck(text, name):    
-    try:
-        licenseData.objects.get(licenseData = text).exclude(name = name)
-        isDuplicate = True
-    except:
-        isDuplicate = False    
-    return isDuplicate        
-
-
-=======
 def duplicateCheck(text, name):   
     simplifiedText = matchLicenses(text) 
     isDuplicate = [False, simplifiedText]
@@ -92,7 +74,6 @@ def duplicateCheck(text, name):
     except:
         isDuplicate = [False, simplifiedText]   
     return isDuplicate   
->>>>>>> Stashed changes:user/utilityFunctions.py
 
 
 def licenseTrackingFunction(name, user, operation, comments):
@@ -109,11 +90,6 @@ def licenseTrackingFunction(name, user, operation, comments):
         license = licenseObject,
         operationType =  operationTypeObject,
         user = user,
-<<<<<<< Updated upstream:Source Code/user/utilityFunctions.py
-        date =datetime.now(),
-        comments = comments )
-    newLicenseTracking.save()
-=======
         date = django.utils.timezone.now(),
         comments = comments )
     newLicenseTracking.save()
@@ -289,4 +265,3 @@ def exportAndZipApprover(request):
     response['Content-Disposition'] = 'attachment; filename=Zip List' + str(django.utils.timezone.now().strftime("%Y-%m-%d %H:%M:%S")) + '.zip'
     request.session["list"] = None
     return response 
->>>>>>> Stashed changes:user/utilityFunctions.py
